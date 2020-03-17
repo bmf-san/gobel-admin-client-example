@@ -1,0 +1,15 @@
+FROM node:14.3.0-alpine as build-stage
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run prod-build
+
+FROM alpine
+
+COPY --from=build-stage /app/dist /var/www/html
