@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  app:
+    container_name: "gobel-admin-client"
+    build:
+        context: "./app"
+        dockerfile: "Dockerfile"
+    ports:
+      - "82:80"
+    networks:
+      - gobel_link
+networks:
+    gobel_link:
+        external: true
