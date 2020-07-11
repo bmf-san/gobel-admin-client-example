@@ -12,28 +12,17 @@ This is an example for admin client application of gobel.
 - [gobel-example](https://github.com/bmf-san/gobel-example)
 
 # Requirements
-- Golang1.13
+<!-- TODO: -->
 - Docker Compose
 
 # Requirements
-- Golang1.13
+<!-- TODO: -->
 - Docker Compose
 
 # Get started
 Before you start, you need to clone [gobel-api](https://github.com/bmf-san/gobel-api).
 
-`cp .env_example .env`
-
-`make docker-compose-build`
-
-`make docker-compose-up` or `make docker-compose-up-d`
-Add hosts to `/etc/hosts`.
-
-
-Add hosts to `/etc/hosts`.
-```
-127.0.0.1 gobel-admin-client-example.local
-```
+<!-- TODO: -->
 
 # Contributing
 We welcome your issue or pull request from everyone.
