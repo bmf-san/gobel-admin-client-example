@@ -35,4 +35,11 @@ const router = new VueRouter({
   routes
 });
 
+router.beforeEach((to, from, next) => {
+  // TODO: cookieからlocalstorageのトークンを確認
+  const isAuthenticated = false;
+  if (to.name !== "Signin" && !isAuthenticated) next({ name: "Signin" });
+  else next();
+});
+
 export default router;

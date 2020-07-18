@@ -1,7 +1,7 @@
 <template>
   <div>
     <Loader v-show="loading" />
-    <form @submit.prevent="signin" v-show="isActive">
+    <form @submit.prevent="signin">
       <input type="email" name="email" v-model="email" />
       <input type="password" name="password" v-model="password" />
       <button type="submit">Signin</button>
@@ -20,7 +20,7 @@ export default {
   },
   data() {
     return {
-      loading: true,
+      loading: false,
       email: "",
       password: "",
     };
@@ -28,6 +28,7 @@ export default {
   methods: {
     async signin() {
       try {
+        this.loading = true;
         await apiClient
           .post("/signin", {
             params: {
@@ -38,14 +39,12 @@ export default {
           .then((res) => {
             // TODO: set cookie
             console.log(res);
-            this.loading = false;
           });
       } catch (e) {
-        this.loading = false;
         console.log(e);
         // TODO: show error
-        return e;
       }
+      this.loading = false;
     },
   },
 };
