@@ -4,7 +4,8 @@
     <p v-if="errors.length">
     <b>Please correct the following error(s):</b>
     <ul>
-      <li v-for="(error, key) in errors" :key="key">{{ error }}</li>
+      <!-- TODO: error ouputs -->
+      <li v-for="error in errors" :key="error.message">{{ error.message }}</li>
     </ul>
     </p>
     <form @submit.prevent="signin">
@@ -42,12 +43,13 @@ export default {
             password: this.password,
           })
           .then((res) => {
-            // TODO: set error if has itt
             // TODO: set cookie
+            // TODO: move to home by router.push
             console.log(res);
           });
       } catch (e) {
-        console.log(e.message);
+        // TODO: error mmessageを出力
+        this.errors = e.response.data;
       } finally {
         this.loading = false;
       }
