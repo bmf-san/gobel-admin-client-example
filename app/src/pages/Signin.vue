@@ -1,9 +1,10 @@
 <template>
   <div>
     <Loader v-show="loading" />
+    <!-- TODO: レスポンスエラー表示 -->
     <form @submit.prevent="signin">
       <input type="email" name="email" v-model="email" />
-      <input type="password" name="password" v-model="password" />
+      <input type="password" name="password" autocomplete="on" v-model="password" />
       <button type="submit">Signin</button>
     </form>
   </div>
@@ -20,6 +21,7 @@ export default {
   },
   data() {
     return {
+      // TODO: レスポンスエラー表示
       loading: false,
       email: "",
       password: "",
@@ -31,10 +33,8 @@ export default {
         this.loading = true;
         await apiClient
           .post("/signin", {
-            params: {
-              email: this.email,
-              password: this.password,
-            },
+            email: this.email,
+            password: this.password,
           })
           .then((res) => {
             // TODO: set cookie
@@ -43,6 +43,7 @@ export default {
       } catch (e) {
         console.log(e);
         // TODO: show error
+        // TODO: サーバーサイドのレスポンスがjsonじゃないので直す
       }
       this.loading = false;
     },
