@@ -1,14 +1,14 @@
-# gobel-admin-client-example
-[![GitHub license](https://img.shields.io/github/license/bmf-san/gobel-admin-client-example)](https://github.com/bmf-san/gobel-admin-client-example/blob/master/LICENSE)
-[![CircleCI](https://circleci.com/gh/bmf-san/gobel-admin-client-example.svg?style=svg)](https://circleci.com/gh/bmf-san/gobel-admin-client-example)
+# gobel-admin-client
+[![GitHub license](https://img.shields.io/github/license/bmf-san/gobel-admin-client)](https://github.com/bmf-san/gobel-admin-client/blob/master/LICENSE)
+[![CircleCI](https://circleci.com/gh/bmf-san/gobel-admin-client.svg?style=svg)](https://circleci.com/gh/bmf-san/gobel-admin-client)
 
 Gobel is headless cms built with golang. 
 This is an example for admin client application of gobel.
 
 # gobel
 - [gobel-api](https://github.com/bmf-san/gobel-api)
+- [gobel-admin-client](https://github.com/bmf-san/gobel-admin-client)
 - [gobel-client-example](https://github.com/bmf-san/gobel-client-example)
-- [gobel-admin-client-example](https://github.com/bmf-san/gobel-admin-client-example)
 - [gobel-example](https://github.com/bmf-san/gobel-example)
 
 # Requirements
@@ -26,7 +26,7 @@ Before you start, you need to clone [gobel-api](https://github.com/bmf-san/gobel
 
 # Contributing
 We welcome your issue or pull request from everyone.
-Please make sure to read the [CONTRIBUTING.md](https://github.com/bmf-san/gobel-admin-client-example/.github/CONTRIBUTING.md).
+Please make sure to read the [CONTRIBUTING.md](https://github.com/bmf-san/gobel-admin-client/.github/CONTRIBUTING.md).
 
 # License
 This project is licensed under the terms of the MIT license.

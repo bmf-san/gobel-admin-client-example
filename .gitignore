@@ -1,5 +1,5 @@
 # app
-/app/gobel-admin-client-example
+/app/gobel-admin-client
 /app/.env
 .DS_STORE
 /app/log/*

@@ -34,10 +34,10 @@ else
 endif
 
 lint: ## Run golint.
-	docker exec -it gobel-admin-client-example golint ./...
+	docker exec -it gobel-admin-client golint ./...
 
 test: ## Run tests.
-	docker exec -it gobel-admin-client-example go test -v ./...
+	docker exec -it gobel-admin-client go test -v ./...
 
 build: ## Run go build
-	cd app && GOOS=linux GOARCH=amd64 go build -o gobel-admin-client-example
+	cd app && GOOS=linux GOARCH=amd64 go build -o gobel-admin-client

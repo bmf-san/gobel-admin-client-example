@@ -13,7 +13,7 @@ RUN npm run prod-build
 FROM nginx:1.19.0-alpine
 
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./nginx/conf.d/gobel-admin-client-example.conf /etc/nginx/conf.d/goble-admin-client-example.conf
+COPY ./nginx/conf.d/gobel-admin-client.conf /etc/nginx/conf.d/goble-admin-client-example.conf
 COPY --from=build-stage /app/dist /var/www/html
 
 RUN ln -sf /dev/stdout /var/log/nginx/access_gobel_admin_client_example.log \
