@@ -2,28 +2,13 @@ version: "3.8"
 services:
   app:
     container_name: "gobel-admin-client-example"
-    env_file: "./app/.env"
     build:
         context: "./app"
-        dockerfile: "Dockerfile"
-    command: realize start --run
-    ports:
-      - "8082:8082"
-    volumes:
-      - ./app:/go/src/github.com/bmf-san/gobel-admin-client-example/app
-    networks:
-      - gobel_link
-  nginx:
-    container_name: "gobel-admin-client-example-nginx"
-    build:
-        context: "./nginx"
         dockerfile: "Dockerfile"
     ports:
       - "82:80"
     networks:
       - gobel_link
-    depends_on:
-      - app
 networks:
     gobel_link:
         external: true

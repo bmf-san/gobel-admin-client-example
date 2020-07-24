@@ -36,8 +36,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  // TODO: cookieからlocalstorageのトークンを確認
-  const isAuthenticated = false;
+  // TODO:
+  const isAuthenticated = true;
   if (to.name !== "Signin" && !isAuthenticated) next({ name: "Signin" });
   else next();
 });

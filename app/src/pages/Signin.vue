@@ -1,13 +1,8 @@
 <template>
   <div>
     <Loader v-show="loading" />
-    <p v-if="errors.length">
-    <b>Please correct the following error(s):</b>
-    <ul>
-      <!-- TODO: error ouputs -->
-      <li v-for="error in errors" :key="error.message">{{ error.message }}</li>
-    </ul>
-    </p>
+    <!-- TODO: 1.0.1 will support validation errors -->
+    <Error :error="error" />
     <form @submit.prevent="signin">
       <input type="email" name="email" v-model="email" />
       <input type="password" name="password" autocomplete="on" v-model="password" />
@@ -18,16 +13,19 @@
 
 <script>
 import Loader from "../components/Loader";
+import Error from "../components/Error";
 import apiClient from "../modules/apiClient";
+import router from '../router'
 
 export default {
   name: "Signin",
   components: {
     Loader,
+    Error,
   },
   data() {
     return {
-      errors: [],
+      error: "",
       loading: false,
       email: "",
       password: "",
@@ -41,15 +39,15 @@ export default {
           .post("/signin", {
             email: this.email,
             password: this.password,
+          }, {
+            // TODO: 
+            withCredentials: true
           })
-          .then((res) => {
-            // TODO: set cookie
-            // TODO: move to home by router.push
-            console.log(res);
+          .then(() => {
+            router.push('home');
           });
       } catch (e) {
-        // TODO: error mmessageを出力
-        this.errors = e.response.data;
+        this.error = e.response.data.message
       } finally {
         this.loading = false;
       }

@@ -1,0 +1,20 @@
+FROM node:14.3.0-alpine as build-stage
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY ./ .
+
+RUN npm run build-prod
+
+FROM nginx:1.19.0-alpine
+
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/conf.d/gobel-admin-client-example.conf /etc/nginx/conf.d/goble-admin-client-example.conf
+COPY /app /var/www/html
+
+RUN ln -sf /dev/stdout /var/log/nginx/access_gobel_admin_client_example.log \
+    && ln -sf /dev/stderr /var/log/nginx/error_gobel_admin_client_example.log \
