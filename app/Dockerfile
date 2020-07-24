@@ -8,7 +8,7 @@ RUN npm install
 
 COPY ./ .
 
-RUN npm run build-prod
+RUN npm run prod-build
 
 FROM nginx:1.19.0-alpine
 
