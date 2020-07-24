@@ -39,9 +39,6 @@ export default {
           .post("/signin", {
             email: this.email,
             password: this.password,
-          }, {
-            // TODO: 
-            withCredentials: true
           })
           .then(() => {
             router.push('home');
