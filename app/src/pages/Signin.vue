@@ -32,7 +32,7 @@ export default {
     };
   },
   methods: {
-    // TODO: アクセストークンのリフレッシュ対応が必要
+    // TODO: アクセストークンのリフレッシュ対応が必要。共通ロジックなので、axiosのinterceptorとかで対応するのが良さそう
     // cf, https://qiita.com/nqyutq/items/c025ad9dbe732c85e124
     async signin() {
       try {
