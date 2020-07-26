@@ -32,6 +32,8 @@ export default {
     };
   },
   methods: {
+    // TODO: アクセストークンのリフレッシュ対応が必要
+    // cf, https://qiita.com/nqyutq/items/c025ad9dbe732c85e124
     async signin() {
       try {
         this.loading = true;
