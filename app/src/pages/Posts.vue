@@ -37,6 +37,7 @@ export default {
             }
           })
           .then(res => {
+            // TODO: pagination周り調整
             console.log(res.headers);
             this.posts = res.data;
             this.loading = false;
