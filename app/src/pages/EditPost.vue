@@ -4,6 +4,7 @@
     <Loader v-show="loading" />
     <div>
       <form>
+        <!-- TODO: tag input 追加 -->
         <textarea v-model="markdown"></textarea>
       </form>
       <div class="preview" v-html="compileMarkdown"></div>
@@ -27,12 +28,14 @@ export default {
     return {
       loading: true,
       post: "",
+      tags: "",
       markdown: ""
     };
   },
   created() {
     const id = this.$route.params.id;
     this.getPost(id);
+    this.getTags();
     marked.setOptions({
       langPrefix: '',
       highlight: function (code, lang) {
@@ -65,6 +68,25 @@ export default {
         this.loading = false;
       }
     },
+    async getTags() {
+      try {
+        this.loading = true;
+        await apiClient
+          .get(`/private/tags`, {
+            headers: {
+              'Authorization': "Bearer " + localStorage.getItem("access_token"),
+            }
+          })
+          .then(res => {
+            this.tags = res.data;
+            this.loading = false;
+          })
+      } catch(e) {
+        console.log(e);
+      } finally {
+        this.loading = false;
+      }
+    }
     // TODO: add a method for edit.
   }
 };

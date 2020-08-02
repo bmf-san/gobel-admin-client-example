@@ -37,6 +37,7 @@ export default {
             }
           })
           .then(res => {
+            console.log(res.headers);
             this.posts = res.data;
             this.loading = false;
         });
