@@ -4,7 +4,14 @@
     <Loader v-show="loading" />
     <div>
       <form>
-        <!-- TODO: tag input 追加 -->
+        <multiselect 
+          v-model="tag" 
+          :options="tagOptions"
+          :multiple="true"
+          :custom-label="customLabel"
+          :options-limit="10"
+        >
+        </multiselect>
         <textarea v-model="markdown"></textarea>
       </form>
       <div class="preview" v-html="compileMarkdown"></div>
@@ -16,19 +23,22 @@
 import Loader from "@/components/Loader.vue";
 import apiClient from "../modules/apiClient";
 import marked from 'marked';
+import Multiselect from 'vue-multiselect'
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 
 export default {
   name: "EditPost",
   components: {
-    Loader
+    Loader,
+    Multiselect 
   },
   data() {
     return {
       loading: true,
       post: "",
-      tags: "",
+      tag: "",
+      tagOptions: [],
       markdown: ""
     };
   },
@@ -49,6 +59,9 @@ export default {
     }
   },
   methods: {
+    customLabel (option) {
+      return `${option.name}`
+    },
     async getPost(id) {
       try {
         this.loading = true;
@@ -72,13 +85,13 @@ export default {
       try {
         this.loading = true;
         await apiClient
-          .get(`/private/tags`, {
+          .get(`/private/tags?page=1&limit=9999`, {
             headers: {
               'Authorization': "Bearer " + localStorage.getItem("access_token"),
             }
           })
           .then(res => {
-            this.tags = res.data;
+            this.tagOptions = res.data;
             this.loading = false;
           })
       } catch(e) {
@@ -88,6 +101,9 @@ export default {
       }
     }
     // TODO: add a method for edit.
+    // TODO: objectから任意のkeyのvalueだけのセットを生成 多分あとで使いそうなのでメモ
+    // const tagIds = res.data.map((obj) => obj.id);
+    // console.log(tagIds);
   }
 };
 </script>
