@@ -12,4 +12,4 @@ RUN npm run prod-build
 
 FROM alpine
 
-COPY --from=build-stage /app/dist /var/www/html
+COPY --from=build-stage /app/dist/ ./

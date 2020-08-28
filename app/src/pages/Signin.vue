@@ -2,7 +2,6 @@
   <div>
     <h1>Login</h1>
     <Loader v-show="loading" />
-    <!-- TODO: 1.0.1 will support validation errors -->
     <Error :error="error" />
     <form @submit.prevent="signin">
       <input type="email" name="email" v-model="email" />
