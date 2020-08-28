@@ -57,7 +57,7 @@ jobs:
                 root: .
                 paths:
                     - .
-    golint:
+    lint:
         machine: true
         steps:
             - attach_workspace:
@@ -66,8 +66,8 @@ jobs:
             - *load_docker_image
             - *run_docker_compose
             - run:
-                name: Run golint
-                command: make lint
+                name: Run lint
+                command: npm run lint
     test:
         machine: true
         steps:
@@ -78,13 +78,13 @@ jobs:
             - *run_docker_compose
             - run:
                 name: Run tests
-                command: make test
+                command: npm run test:unit
 workflows:
     version: 2
     build_and_test:
         jobs:
             - build
-            - golint:
+            - lint:
                 requires:
                     - build
             - test:

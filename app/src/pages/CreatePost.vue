@@ -1,6 +1,6 @@
 <template>
-  <div class="editpost">
-    <h1>EditPost</h1>
+  <div class="createpost">
+    <h1>CreatePost</h1>
     <Loader v-show="loading" />
     <div>
       <Error :error="error" />
@@ -8,12 +8,12 @@
         <input type="text" name="title" v-model="title" />
         <multiselect
           v-model="tags"
-          label="name"
-          track-by="id"
           :options="tagOptions"
           :multiple="true"
-          :taggable="true"
-        ></multiselect>
+          :custom-label="customLabel"
+          :options-limit="10"
+        >
+        </multiselect>
         <select v-model="categoryId">
           <option disabled value="">Select a category</option>
           <option
@@ -47,9 +47,10 @@ import marked from "marked";
 import Multiselect from "vue-multiselect";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
+import router from "../router";
 
 export default {
-  name: "EditPost",
+  name: "CreatePost",
   components: {
     Loader,
     Error,
@@ -70,8 +71,6 @@ export default {
     };
   },
   created() {
-    const id = this.$route.params.id;
-    this.getPost(id);
     this.getTags();
     this.getCategories();
     marked.setOptions({
@@ -87,29 +86,8 @@ export default {
     }
   },
   methods: {
-    async getPost(id) {
-      try {
-        this.loading = true;
-        await apiClient
-          .get(`/private/posts/${id}`, {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("access_token")
-            }
-          })
-          .then(res => {
-            this.categoryId = res.data.category.id;
-            this.tags = res.data.tags;
-            this.title = res.data.title;
-            this.markdown = res.data.md_body;
-            this.status = res.data.status;
-
-            this.loading = false;
-          });
-      } catch (e) {
-        console.log(e);
-      } finally {
-        this.loading = false;
-      }
+    customLabel(option) {
+      return `${option.name}`;
     },
     async getTags() {
       try {
@@ -150,6 +128,7 @@ export default {
       }
     },
     async save() {
+      // TODO: want to support autosave using localstorage.
       try {
         this.loading = true;
         const tagIds = this.tags.map(obj => {
@@ -158,8 +137,8 @@ export default {
           };
         });
         await apiClient
-          .patch(
-            `/private/posts/${this.$route.params.id}`,
+          .post(
+            `/private/posts`,
             {
               category_id: this.categoryId,
               tags: tagIds,
@@ -176,6 +155,8 @@ export default {
           )
           .then(() => {
             this.loading = false;
+            // TODO: apiがidを返さないので対応する
+            router.push({ name: "EditPost", params: { id: 1 } });
           });
       } catch (e) {
         this.error = e.response.data.message;

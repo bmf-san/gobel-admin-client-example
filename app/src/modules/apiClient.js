@@ -5,12 +5,11 @@ import router from "../router";
 const apiClient = axios.create({
   baseURL: process.env.VUE_APP_API_ENDPOINT,
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json"
   },
   responseType: "json"
 });
 
-// TODO: 動作確認ちゃんとしていないので後でする
 apiClient.interceptors.response.use(
   res => {
     // if the api request is successful, return response as it is.
@@ -21,11 +20,11 @@ apiClient.interceptors.response.use(
     if (error.config && error.response && error.response.status === 401) {
       apiClient
         .post(
-          "/refresh",
+          "/private/refresh",
           {},
           {
             headers: {
-              'Authorization': "Bearer " + localStorage.getItem("refresh_token"),
+              Authorization: "Bearer " + localStorage.getItem("refresh_token")
             }
           }
         )
@@ -34,7 +33,7 @@ apiClient.interceptors.response.use(
             const config = error.config;
             localStorage.setItem("access_token", res.data.access_token);
             localStorage.setItem("refresh_token", res.data.refresh_token);
-            config.headers["Authorization"] = res.data.refresh_token;
+            config.headers["Authorization"] = "Bearer " + res.data.access_token;
 
             // Retry the api request.
             return Axios.request(error.config);

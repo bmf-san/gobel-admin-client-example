@@ -13,16 +13,37 @@ This is an example for admin client application of gobel.
 
 # Requirements
 <!-- TODO: -->
-- Docker Compose
-
-# Requirements
-<!-- TODO: -->
+- Docker
 - Docker Compose
 
 # Get started
 Before you start, you need to clone [gobel-api](https://github.com/bmf-san/gobel-api).
 
 <!-- TODO: -->
+```
+npm install
+```
+
+# Scripts
+## Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+## Compiles and minifies for production
+```
+npm run build
+```
+
+## Run your unit tests
+```
+npm run test:unit
+```
+
+## Lints and fixes files
+```
+npm run lint
+```
 
 # Contributing
 We welcome your issue or pull request from everyone.

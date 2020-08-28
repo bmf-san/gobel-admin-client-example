@@ -32,12 +32,3 @@ ifeq ($(env), ci)
 else
 	docker-compose -f docker-compose.yml pull
 endif
-
-lint: ## Run golint.
-	docker exec -it gobel-admin-client golint ./...
-
-test: ## Run tests.
-	docker exec -it gobel-admin-client go test -v ./...
-
-build: ## Run go build
-	cd app && GOOS=linux GOARCH=amd64 go build -o app
