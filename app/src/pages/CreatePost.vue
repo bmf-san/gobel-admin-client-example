@@ -153,10 +153,9 @@ export default {
               }
             }
           )
-          .then(() => {
+          .then(res => {
             this.loading = false;
-            // TODO: apiがidを返さないので対応する
-            router.push({ name: "EditPost", params: { id: 1 } });
+            router.push({ name: "EditPost", params: { id: res.data.id } });
           });
       } catch (e) {
         this.error = e.response.data.message;

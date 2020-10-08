@@ -1,10 +1,9 @@
-version: "3"
+# circleci does not support version 3.3 ~
+version: "3.2"
 services:
   app:
     container_name: "gobel-admin-client"
     build:
         context: "./app"
         dockerfile: "Dockerfile.ci"
-    ports:
-      - "8081:8081"
-    command: ./app
+    tty: true
