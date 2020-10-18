@@ -4,6 +4,9 @@
     <div id="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/posts">Posts</router-link>
+      <router-link to="/categories">Categories</router-link>
+      <router-link to="/tags">Tags</router-link>
+      <router-link to="/comments">Comments</router-link>
       <!-- TODO: It may be necessary to introduce a store pattern to adjust the display conditions -->
       <button @click="signout()">Signout</button>
     </div>
