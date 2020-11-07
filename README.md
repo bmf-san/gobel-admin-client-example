@@ -19,10 +19,33 @@ This is an example for admin client application of gobel.
 # Get started
 Before you start, you need to clone [gobel-api](https://github.com/bmf-san/gobel-api).
 
-<!-- TODO: -->
+## Set up a env file.
 ```
-npm install
+cp .env_example .env
 ```
+
+## Edit a host file.
+```
+127.0.0.1 gobel-admin-client.local
+```
+
+## Build containers
+```
+make docker-compose-build
+```
+
+## Run containers
+```
+make docker-compose-up
+```
+
+or
+
+```
+make docker-compose-up-d
+```
+
+Then go to `gobel-admin-client.local:82`
 
 # Scripts
 ## Compiles and hot-reloads for development
