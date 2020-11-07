@@ -11,11 +11,6 @@ This is an example for admin client application of gobel.
 - [gobel-client-example](https://github.com/bmf-san/gobel-client-example)
 - [gobel-example](https://github.com/bmf-san/gobel-example)
 
-# Requirements
-<!-- TODO: -->
-- Docker
-- Docker Compose
-
 # Get started
 Before you start, you need to clone [gobel-api](https://github.com/bmf-san/gobel-api).
 
