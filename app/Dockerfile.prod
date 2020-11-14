@@ -8,7 +8,10 @@ RUN npm install
 
 COPY . .
 
-RUN npm run local-build
+ARG VUE_APP_API_ENDPOINT
+ENV VUE_APP_API_ENDPOINT=${VUE_APP_API_ENDPOINT}
+
+RUN npm run prod-build
 
 FROM scratch
 
