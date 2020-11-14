@@ -8,6 +8,9 @@ RUN npm install
 
 COPY . .
 
+ARG VUE_APP_API_ENDPOINT
+ENV VUE_APP_API_ENDPOINT=${VUE_APP_API_ENDPOINT}
+
 RUN npm run local-build
 
 FROM nginx:1.19.0-alpine
