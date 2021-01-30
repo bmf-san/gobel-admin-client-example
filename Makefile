@@ -34,7 +34,7 @@ else
 endif
 
 lint: ## Run lint.
-	docker exec -it gobel-admin-client npm run lint
+	docker exec -it gobel-admin-client-example npm run lint
 
 test: ## Run tests.
-	docker exec -it gobel-admin-client npm run test:unit
+	docker exec -it gobel-admin-client-example npm run test:unit

@@ -2,7 +2,7 @@
 version: "3.2"
 services:
   app:
-    container_name: "gobel-admin-client"
+    container_name: "gobel-admin-client-example"
     build:
         context: "./app"
         dockerfile: "Dockerfile.ci"
