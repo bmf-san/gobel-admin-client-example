@@ -1,6 +1,5 @@
 import axios from "axios";
-import Axios from "axios";
-import router from "../router";
+import storage from "../storage";
 
 const apiClient = axios.create({
   baseURL: process.env.VUE_APP_API_ENDPOINT,
@@ -10,47 +9,49 @@ const apiClient = axios.create({
   responseType: "json"
 });
 
-apiClient.interceptors.response.use(
-  res => {
-    // if the api request is successful, return response as it is.
-    return res;
-  },
-  error => {
-    // if the api request failes, refresh the token.
-    if (error.config && error.response && error.response.status === 401) {
-      apiClient
-        .post(
-          "/private/refresh",
-          {},
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("refresh_token")
-            }
-          }
-        )
-        .then(res => {
-          if (res.status === 200) {
-            const config = error.config;
-            localStorage.setItem("access_token", res.data.access_token);
-            localStorage.setItem("refresh_token", res.data.refresh_token);
-            config.headers["Authorization"] = "Bearer " + res.data.access_token;
+let refreshTokenPromise;
 
-            // Retry the api request.
-            return Axios.request(error.config);
-          } else {
-            router.push({
-              path: "/signin"
-            });
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          router.push({
-            path: "/signin"
-          });
+const getRefreshToken = () =>
+  apiClient
+    .post(
+      "/private/refresh",
+      {},
+      {
+        headers: { Authorization: "Bearer " + storage.getRefreshToken() }
+      }
+    )
+    .then(response => {
+      storage.setAccessToken(response.data.access_token);
+      storage.setRefreshToken(response.data.refresh_token);
+      console.log(response);
+    });
+
+apiClient.interceptors.response.use(
+  r => r,
+  error => {
+    if (
+      error.config &&
+      error.config.url !== "/signin" &&
+      error.response &&
+      error.response.status === 401 &&
+      !error.config._retry
+    ) {
+      if (!refreshTokenPromise) {
+        error.config._retry = true;
+        refreshTokenPromise = getRefreshToken().then(response => {
+          refreshTokenPromise = null;
+          return response;
         });
+      }
+
+      return refreshTokenPromise.then(response => {
+        error.config.headers["Authorization"] =
+          "Bearer " + response.data.access_token;
+        return apiClient.request(error.config);
+      });
     }
     return Promise.reject(error);
   }
 );
+
 export default apiClient;

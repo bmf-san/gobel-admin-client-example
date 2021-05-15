@@ -7,12 +7,13 @@
     "local-build": "vue-cli-service build --mode=local",
     "prod-build": "vue-cli-service build --mode-production",
     "test:unit": "vue-cli-service test:unit --u",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint --fix"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "highlight.js": "^10.4.1",
     "marked": "^1.1.1",
+    "sea.css": "^2.1.0",
     "vue": "^2.6.11",
     "vue-multiselect": "^2.1.6",
     "vue-router": "^3.2.0"

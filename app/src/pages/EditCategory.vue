@@ -1,13 +1,15 @@
 <template>
-  <div class="editcategory">
-    <h1>EditCategory</h1>
+  <div class="container">
     <Loader v-show="loading" />
-    <div>
-      <Error :error="error" />
-      <form @submit.prevent="save">
-        <input type="text" name="name" v-model="name" />
-        <input type="submit" value="Save" />
-      </form>
+    <div class="row">
+      <div class="col">
+        <h1>EditCategory</h1>
+        <Error :error="error" />
+        <form @submit.prevent="save">
+          <input type="text" name="name" v-model="name" />
+          <input class="submit-button" type="submit" value="Save" />
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -35,6 +37,7 @@ export default {
     this.getCategory(id);
   },
   methods: {
+    // TODO: DELETE 対応
     async getCategory(id) {
       try {
         this.loading = true;
@@ -81,5 +84,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

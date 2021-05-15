@@ -14,6 +14,7 @@ import EditTag from "../pages/EditTag.vue";
 import Comments from "../pages/Comments.vue";
 import EditComment from "../pages/EditComment.vue";
 import apiClient from "../modules/apiClient";
+import storage from "../storage";
 
 Vue.use(VueRouter);
 
@@ -105,21 +106,22 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    // if the request fails, apiclient intercepts responses.
+    // if not signed in
+    if (storage.getIsSignin() == false) {
+      router.push({ name: "Signin" });
+    }
+    // private pages
     apiClient
       .get("/private/me", {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("access_token")
+          Authorization: "Bearer " + storage.getAccessToken()
         }
       })
       .then(function() {
         next();
-      })
-      .catch(function(error) {
-        console.log(error);
-        next();
       });
   } else {
+    // public pages
     next();
   }
 });

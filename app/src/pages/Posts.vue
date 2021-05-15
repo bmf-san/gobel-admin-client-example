@@ -1,20 +1,57 @@
 <template>
-  <div class="posts">
-    <h1>Posts</h1>
+  <div class="container">
     <Loader v-show="loading" />
-    <div>
-      <article v-for="post in posts" :key="post.id">
-        <router-link :to="{ name: 'EditPost', params: { id: post.id } }"
-          ><h1>{{ post.title }}</h1></router-link
-        >
-      </article>
-      <Pagination
-        name="Posts"
-        :page="page"
-        :limit="limit"
-        :pagecount="pagecount"
-        @click.native="getPosts(page, limit)"
-      />
+    <div class="row">
+      <div class="col">
+        <h1>Posts</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Created at</th>
+              <th>Updated at</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="post in posts" :key="post.id">
+              <td>{{ post.id }}</td>
+              <td>
+                {{ post.title }}
+              </td>
+              <td>{{ post.category.name }}</td>
+              <td>{{ post.created_at }}</td>
+              <td>{{ post.updated_at }}</td>
+              <td>
+                <router-link :to="{ name: 'EditPost', params: { id: post.id } }"
+                  >Edit</router-link
+                >
+              </td>
+              <td>
+                <a
+                  @click.prevent.stop="deletePost(post.id)"
+                  class="color-danger delete-link"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <Pagination
+          name="Posts"
+          :page="page"
+          :limit="limit"
+          :pagecount="pagecount"
+          @click.native="getPosts(page, limit)"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -42,13 +79,18 @@ export default {
       pagecount: defaultPageCount
     };
   },
-  created() {
-    this.getPosts(this.page, this.limit);
+  mounted() {
+    const page = this.$route.query.page;
+    const limit = this.$route.query.limit;
+    if (page == null || limit == null) {
+      this.getPosts(this.page, this.limit);
+    } else {
+      this.getPosts(page, limit);
+    }
   },
   beforeRouteUpdate(to, from, next) {
-    this.page = to.query.page;
-    this.limit = to.query.limit;
-    this.getPosts(this.page, this.limit);
+    this.getPosts(to.query.page, to.query.limit);
+
     next();
   },
   methods: {
@@ -73,9 +115,39 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    async deletePost(id) {
+      if (!confirm("Is it really okay to delete it?")) {
+        return;
+      }
+      try {
+        this.loading = true;
+        await apiClient
+          .delete(`/private/posts/${id}`, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("access_token")
+            }
+          })
+          .then(res => {
+            console.log(res);
+            this.getPosts(this.page, this.limit);
+            this.loading = false;
+          });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        this.loading = false;
+      }
     }
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+table {
+  margin: 0 auto;
+}
+.delete-link:hover {
+  color: var(--danger-color);
+}
+</style>

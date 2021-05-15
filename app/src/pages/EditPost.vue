@@ -1,39 +1,69 @@
 <template>
-  <div class="editpost">
-    <h1>EditPost</h1>
+  <div class="container">
     <Loader v-show="loading" />
-    <div>
-      <Error :error="error" />
-      <form @submit.prevent="save">
-        <input type="text" name="title" v-model="title" />
-        <multiselect
-          v-model="tags"
-          label="name"
-          track-by="id"
-          :options="tagOptions"
-          :multiple="true"
-          :taggable="true"
-        ></multiselect>
-        <select v-model="categoryId">
-          <option disabled value="">Select a category</option>
-          <option
-            v-for="category in categories"
-            :value="category.id"
-            :key="category.id"
-          >
-            {{ category.name }}
-          </option>
-        </select>
-        <textarea v-model="markdown"></textarea>
-        <select v-model="status">
-          <option disabled value="">Select a status</option>
-          <option v-for="status of statuses" :key="status">
-            {{ status }}
-          </option>
-        </select>
-        <input type="submit" value="Save" />
-      </form>
-      <div class="preview" v-html="compileMarkdown"></div>
+    <div class="row">
+      <div class="col">
+        <h1>EditPost</h1>
+        <div>
+          <Error :error="error" />
+          <form @submit.prevent="save">
+            <label for="title">Title</label>
+            <input type="text" name="title" v-model="title" />
+            <multiselect
+              v-model="tags"
+              placeholder=""
+              label="name"
+              track-by="id"
+              :options="tagOptions"
+              :multiple="true"
+              :taggable="true"
+              @tag="addTag"
+            ></multiselect>
+            <label for="category">Category</label>
+            <select v-model="categoryId">
+              <option disabled></option>
+              <option
+                v-for="category in categories"
+                :value="category.id"
+                :key="category.id"
+              >
+                {{ category.name }}
+              </option>
+            </select>
+            <label for="tab">Body</label>
+            <div class="tab">
+              <input
+                id="write-tab"
+                type="radio"
+                name="tab"
+                class="tab-toggle"
+                checked="checked"
+              /><label class="tab-label" for="write-tab">Write</label>
+              <div class="col-tab padding-left-0rem padding-right-0rem">
+                <textarea v-model="markdown"></textarea>
+              </div>
+              <input
+                id="preview-tab"
+                type="radio"
+                name="tab"
+                class="tab-toggle"
+              />
+              <label class="tab-label" for="preview-tab">Preview</label>
+              <div class="col-tab padding-left-0rem padding-right-0rem">
+                <div class="preview" v-html="compileMarkdown"></div>
+              </div>
+            </div>
+            <label for="status">Status</label>
+            <select v-model="status">
+              <option disabled></option>
+              <option v-for="status of statuses" :key="status">
+                {{ status }}
+              </option>
+            </select>
+            <input class="submit-button" type="submit" value="Save" />
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -47,6 +77,7 @@ import marked from "marked";
 import Multiselect from "vue-multiselect";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
+import storage from "../storage";
 
 export default {
   name: "EditPost",
@@ -87,13 +118,21 @@ export default {
     }
   },
   methods: {
+    addTag(newTag) {
+      console.log(newTag);
+      const tag = {
+        name: newTag
+      };
+      this.tagOptions.push(tag);
+      this.tags.push(tag);
+    },
     async getPost(id) {
       try {
         this.loading = true;
         await apiClient
           .get(`/private/posts/${id}`, {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("access_token")
+              Authorization: "Bearer " + storage.getAccessToken()
             }
           })
           .then(res => {
@@ -110,6 +149,9 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    customLabel(option) {
+      return `${option.name}`;
     },
     async getTags() {
       try {
@@ -187,4 +229,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+textarea {
+  resize: none;
+  min-height: 600px;
+}
+</style>

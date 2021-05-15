@@ -1,20 +1,56 @@
 <template>
-  <div class="categories">
-    <h1>Categories</h1>
+  <div class="container">
     <Loader v-show="loading" />
-    <div>
-      <article v-for="category in categories" :key="category.id">
-        <router-link :to="{ name: 'EditCategory', params: { id: category.id } }"
-          ><h1>{{ category.name }}</h1></router-link
-        >
-      </article>
-      <Pagination
-        name="Categories"
-        :page="page"
-        :limit="limit"
-        :pagecount="pagecount"
-        @click.native="getCategories(page, limit)"
-      />
+    <div class="row">
+      <div class="col">
+        <h1>Categories</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Created at</th>
+              <th>Updated at</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="category in categories" :key="category.id">
+              <td>{{ category.id }}</td>
+              <td>
+                {{ category.name }}
+              </td>
+              <td>{{ category.created_at }}</td>
+              <td>{{ category.updated_at }}</td>
+              <td>
+                <router-link
+                  :to="{ name: 'EditCategory', params: { id: category.id } }"
+                  >Edit</router-link
+                >
+              </td>
+              <td>
+                <a
+                  @click.prevent.stop="deleteCategories(category.id)"
+                  class="color-danger delete-link"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <Pagination
+          name="Categories"
+          :page="page"
+          :limit="limit"
+          :pagecount="pagecount"
+          @click.native="getCategories(page, limit)"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -27,6 +63,7 @@ const defaultPageCount = 10;
 import Loader from "@/components/Loader.vue";
 import Pagination from "@/components/Pagination.vue";
 import apiClient from "../modules/apiClient";
+import storage from "../storage";
 export default {
   name: "Categories",
   components: {
@@ -42,8 +79,14 @@ export default {
       pagecount: defaultPageCount
     };
   },
-  created() {
-    this.getCategories(this.page, this.limit);
+  mounted() {
+    const page = this.$route.query.page;
+    const limit = this.$route.query.limit;
+    if (page == null || limit == null) {
+      this.getCategories(this.page, this.limit);
+    } else {
+      this.getCategories(page, limit);
+    }
   },
   beforeRouteUpdate(to, from, next) {
     this.page = to.query.page;
@@ -58,7 +101,7 @@ export default {
         await apiClient
           .get(`/private/categories?page=${page}&limit=${limit}`, {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("access_token")
+              Authorization: "Bearer " + storage.getAccessToken()
             }
           })
           .then(res => {
@@ -73,9 +116,39 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    async deleteCategories(id) {
+      if (!confirm("Is it really okay to delete it?")) {
+        return;
+      }
+      try {
+        this.loading = true;
+        await apiClient
+          .delete(`/private/categories/${id}`, {
+            headers: {
+              Authorization: "Bearer " + storage.getAccessToken()
+            }
+          })
+          .then(res => {
+            console.log(res);
+            this.getCategories(this.page, this.limit);
+            this.loading = false;
+          });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        this.loading = false;
+      }
     }
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+table {
+  margin: 0 auto;
+}
+.delete-link:hover {
+  color: var(--danger-color);
+}
+</style>

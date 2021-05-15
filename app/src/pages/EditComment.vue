@@ -1,20 +1,24 @@
 <template>
-  <div class="editcomment">
-    <h1>EditComment</h1>
+  <div class="container">
     <Loader v-show="loading" />
-    <div>
-      <Error :error="error" />
-      <form @submit.prevent="save">
-        <p>{{ title }}</p>
-        <p>{{ body }}</p>
-        <select v-model="status">
-          <option disabled value="">Select a status</option>
-          <option v-for="status of statuses" :key="status">
-            {{ status }}
-          </option>
-        </select>
-        <input type="submit" value="Save" />
-      </form>
+    <div class="row">
+      <div class="col">
+        <h1>EditComment</h1>
+        <Error :error="error" />
+        <form @submit.prevent="save">
+          <label>Title</label>
+          <p>{{ title }}</p>
+          <label>Body</label>
+          <p>{{ body }}</p>
+          <select v-model="status">
+            <option disabled value="">Select a status</option>
+            <option v-for="status of statuses" :key="status">
+              {{ status }}
+            </option>
+          </select>
+          <input class="submit-button" type="submit" value="Save" />
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -24,6 +28,7 @@ import Loader from "@/components/Loader.vue";
 import Error from "../components/Error";
 import consts from "../consts/comments";
 import apiClient from "../modules/apiClient";
+import storage from "../storage";
 
 export default {
   name: "EditComment",
@@ -39,23 +44,24 @@ export default {
       title: "",
       body: "",
       statuses: consts.STATUSES,
-      status: "",
+      status: ""
     };
   },
   created() {
     const id = this.$route.params.id;
     this.getComment(id).then(() => {
-        this.getPost(this.postId);
+      this.getPost(this.postId);
     });
   },
   methods: {
+    // TODO: DELETE 対応
     async getPost(id) {
       try {
         this.loading = true;
         await apiClient
           .get(`/private/posts/${id}`, {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("access_token")
+              Authorization: "Bearer " + storage.getAccessToken()
             }
           })
           .then(res => {
@@ -95,7 +101,7 @@ export default {
         this.loading = true;
         await apiClient
           .patch(
-            `/private/comments/${this.$route.params.id}`,
+            `/private/comments/${this.$route.params.id}/status`,
             {
               status: this.status
             },
@@ -117,5 +123,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>
