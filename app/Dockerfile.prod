@@ -1,9 +1,8 @@
 FROM node:14.3.0-alpine as build-stage
 
-WORKDIR /app
+WORKDIR /go/gobel-admin-client-example/app
 
-COPY package*.json ./
+COPY . .
 
 RUN npm install
 
-COPY . .
