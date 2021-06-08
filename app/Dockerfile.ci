@@ -1,13 +1,9 @@
 FROM node:14.3.0-alpine
 
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install -g @vue/cli
-
-RUN npm install
+WORKDIR /go/gobel-admin-client-example/app
 
 COPY . .
 
-RUN npm run prod-build
+RUN npm install -g @vue/cli && \
+	npm install && \
+	npm run prod-build
