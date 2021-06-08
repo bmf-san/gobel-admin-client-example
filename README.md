@@ -16,54 +16,47 @@ This is an example for admin client application of gobel.
 # Get started
 Before you start, you need to clone [gobel-api](https://github.com/bmf-san/gobel-api).
 
-## Edit an env file
+## Docker
+### Create an env file
 ```
 cp .env_example .env
 ```
 
-## Edit a host file
+### Edit a host file
 ```
 127.0.0.1 gobel-admin-client-example.local
 ```
 
-## Build containers
-```
-make docker-compose-build
-```
-
-## Run containers
+### Build and run containers
 ```
 make docker-compose-up
-```
 
 or
 
-```
 make docker-compose-up-d
 ```
 
 Then go to `gobel-admin-client-example.local:82`
 
-# Scripts
-## Compiles and hot-reloads for development
+## npm
+### Create an .env.local
+```
+cp .env /app/.env.local
+```
+
+### Starts a dev server with hot-reload
 ```
 npm run serve
 ```
 
-## Compiles and minifies for production
-```
-npm run build
-```
-
-## Run your unit tests
-```
-npm run test:unit
-```
-
-## Lints and fixes files
-```
-npm run lint
-```
+## npm scripts
+|   Scripts   |             Description              |
+| ----------- | ------------------------------------ |
+| serve       | Starts a dev server with hot-reload. |
+| local-build | Run build for local.                 |
+| prod-build  | Run build for production.            |
+| test:unit   | Run unit tests.                      |
+| lint        | Run lint with --fix option.          |
 
 # Contributing
 We welcome your issue or pull request from everyone.

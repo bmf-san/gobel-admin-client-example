@@ -1,18 +1,22 @@
 <template>
-  <div>
-    <h1>Login</h1>
+  <div class="container-readable">
     <Loader v-show="loading" />
-    <Error :error="error" />
-    <form @submit.prevent="signin">
-      <input type="email" name="email" v-model="email" />
-      <input
-        type="password"
-        name="password"
-        autocomplete="on"
-        v-model="password"
-      />
-      <button type="submit">Signin</button>
-    </form>
+    <div class="row">
+      <div class="col">
+        <h1>Sign in</h1>
+        <Error :error="error" />
+        <form @submit.prevent="signin">
+          <input type="email" name="email" v-model="email" />
+          <input
+            type="password"
+            name="password"
+            autocomplete="on"
+            v-model="password"
+          />
+          <input class="submit-button" type="submit" value="Sign in" />
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -21,6 +25,7 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import apiClient from "../modules/apiClient";
 import router from "../router";
+import storage from "../storage";
 
 export default {
   name: "Signin",
@@ -46,11 +51,13 @@ export default {
             password: this.password
           })
           .then(res => {
-            localStorage.setItem("access_token", res.data.access_token);
-            localStorage.setItem("refresh_token", res.data.refresh_token);
-            router.push("home");
+            storage.setAccessToken(res.data.access_token);
+            storage.setRefreshToken(res.data.refresh_token);
+            storage.setIsSignin(true);
+            router.push({ name: "Home" });
           });
       } catch (e) {
+        console.log(e.message);
         this.error = e.response.data.message;
       } finally {
         this.loading = false;

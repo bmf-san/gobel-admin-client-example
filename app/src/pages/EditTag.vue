@@ -1,13 +1,15 @@
 <template>
-  <div class="edittag">
-    <h1>EditTag</h1>
+  <div class="container">
     <Loader v-show="loading" />
-    <div>
-      <Error :error="error" />
-      <form @submit.prevent="save">
-        <input type="text" name="name" v-model="name" />
-        <input type="submit" value="Save" />
-      </form>
+    <div class="row">
+      <div class="col">
+        <h1>EditTag</h1>
+        <Error :error="error" />
+        <form @submit.prevent="save">
+          <input type="text" name="name" v-model="name" />
+          <input class="submit-button" type="submit" value="Save" />
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -35,6 +37,7 @@ export default {
     this.getTag(id);
   },
   methods: {
+    // TODO: DELETE 対応
     async getTag(id) {
       try {
         this.loading = true;
@@ -81,5 +84,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

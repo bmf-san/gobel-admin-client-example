@@ -1,20 +1,55 @@
 <template>
-  <div class="tags">
-    <h1>Tags</h1>
+  <div class="container">
     <Loader v-show="loading" />
-    <div>
-      <article v-for="tag in tags" :key="tag.id">
-        <router-link :to="{ name: 'EditTag', params: { id: tag.id } }"
-          ><h1>{{ tag.name }}</h1></router-link
-        >
-      </article>
-      <Pagination
-        name="Tags"
-        :page="page"
-        :limit="limit"
-        :pagecount="pagecount"
-        @click.native="getTags(page, limit)"
-      />
+    <div class="row">
+      <div class="col">
+        <h1>Tags</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Created at</th>
+              <th>Updated at</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="tag in tags" :key="tag.id">
+              <td>{{ tag.id }}</td>
+              <td>
+                {{ tag.name }}
+              </td>
+              <td>{{ tag.created_at }}</td>
+              <td>{{ tag.updated_at }}</td>
+              <td>
+                <router-link :to="{ name: 'EditTag', params: { id: tag.id } }"
+                  >Edit</router-link
+                >
+              </td>
+              <td>
+                <a
+                  @click.prevent.stop="deleteTag(tag.id)"
+                  class="color-danger delete-link"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <Pagination
+          name="Tags"
+          :page="page"
+          :limit="limit"
+          :pagecount="pagecount"
+          @click.native="getTags(page, limit)"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -27,6 +62,7 @@ const defaultPageCount = 10;
 import Loader from "@/components/Loader.vue";
 import Pagination from "@/components/Pagination.vue";
 import apiClient from "../modules/apiClient";
+import storage from "../storage";
 export default {
   name: "Tags",
   components: {
@@ -42,8 +78,14 @@ export default {
       pagecount: defaultPageCount
     };
   },
-  created() {
-    this.getTags(this.page, this.limit);
+  mounted() {
+    const page = this.$route.query.page;
+    const limit = this.$route.query.limit;
+    if (page == null || limit == null) {
+      this.getTags(this.page, this.limit);
+    } else {
+      this.getTags(page, limit);
+    }
   },
   beforeRouteUpdate(to, from, next) {
     this.page = to.query.page;
@@ -58,7 +100,7 @@ export default {
         await apiClient
           .get(`/private/tags?page=${page}&limit=${limit}`, {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("access_token")
+              Authorization: "Bearer " + storage.getAccessToken()
             }
           })
           .then(res => {
@@ -73,9 +115,39 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    async deleteTag(id) {
+      if (!confirm("Is it really okay to delete it?")) {
+        return;
+      }
+      try {
+        this.loading = true;
+        await apiClient
+          .delete(`/private/tags/${id}`, {
+            headers: {
+              Authorization: "Bearer " + storage.getAccessToken()
+            }
+          })
+          .then(res => {
+            console.log(res);
+            this.getTags(this.page, this.limit);
+            this.loading = false;
+          });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        this.loading = false;
+      }
     }
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+table {
+  margin: 0 auto;
+}
+.delete-link:hover {
+  color: var(--danger-color);
+}
+</style>

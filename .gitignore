@@ -2,6 +2,7 @@
 /app/app
 /.env
 .DS_STORE
+/app/.env.local
 /app/log/*
 !/app/log/.gitkeep
 

@@ -1,20 +1,52 @@
 <template>
-  <div class="comments">
-    <h1>Comments</h1>
+  <div class="container">
     <Loader v-show="loading" />
-    <div>
-      <article v-for="comment in comments" :key="comment.id">
-        <router-link :to="{ name: 'EditComment', params: { id: comment.id } }"
-          ><h1>{{ comment.body }}</h1></router-link
-        ><span>{{ comment.status }}</span>
-      </article>
-      <Pagination
-        name="Comments"
-        :page="page"
-        :limit="limit"
-        :pagecount="pagecount"
-        @click.native="getComments(page, limit)"
-      />
+    <div class="row">
+      <div class="col">
+        <h1>Comments</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Body</th>
+              <th>Status</th>
+              <th>Created at</th>
+              <th>Updated at</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="comment in comments" :key="comment.id">
+              <td>{{ comment.id }}</td>
+              <td>
+                {{ comment.body }}
+              </td>
+              <td>
+                {{ comment.status }}
+              </td>
+              <td>{{ comment.created_at }}</td>
+              <td>{{ comment.updated_at }}</td>
+              <td>
+                <router-link
+                  :to="{ name: 'EditComment', params: { id: comment.id } }"
+                  >Edit</router-link
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <Pagination
+          name="Comments"
+          :page="page"
+          :limit="limit"
+          :pagecount="pagecount"
+          @click.native="getComments(page, limit)"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -42,8 +74,14 @@ export default {
       pagecount: defaultPageCount
     };
   },
-  created() {
-    this.getComments(this.page, this.limit);
+  mounted() {
+    const page = this.$route.query.page;
+    const limit = this.$route.query.limit;
+    if (page == null || limit == null) {
+      this.getComments(this.page, this.limit);
+    } else {
+      this.getComments(page, limit);
+    }
   },
   beforeRouteUpdate(to, from, next) {
     this.page = to.query.page;
@@ -78,4 +116,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+table {
+  margin: 0 auto;
+}
+.delete-link:hover {
+  color: var(--danger-color);
+}
+</style>

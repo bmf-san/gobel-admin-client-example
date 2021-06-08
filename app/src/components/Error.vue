@@ -1,5 +1,8 @@
 <template>
-  <div class="error" v-if="error">
+  <div
+    class="alert alert-danger margin-bottom-2rem color-text-reverse"
+    v-if="error"
+  >
     <p>{{ error }}</p>
   </div>
 </template>
@@ -12,9 +15,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.error p {
-  color: red;
-}
-</style>
