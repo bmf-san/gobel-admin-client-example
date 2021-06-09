@@ -10,6 +10,7 @@
               <th>ID</th>
               <th>Title</th>
               <th>Category</th>
+              <th>Status</th>
               <th>Created at</th>
               <th>Updated at</th>
               <th>Edit</th>
@@ -23,6 +24,7 @@
                 {{ post.title }}
               </td>
               <td>{{ post.category.name }}</td>
+              <td>{{ post.status }}</td>
               <td>{{ post.created_at }}</td>
               <td>{{ post.updated_at }}</td>
               <td>
