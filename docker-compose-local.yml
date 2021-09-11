@@ -5,7 +5,7 @@ services:
     env_file: ".env"
     build:
         context: "./app"
-        dockerfile: "Dockerfile"
+        dockerfile: "Dockerfile.local"
         args:
           VUE_APP_API_ENDPOINT: $VUE_APP_API_ENDPOINT
     ports:
