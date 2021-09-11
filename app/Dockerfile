@@ -1,4 +1,4 @@
-FROM node:14.3.0-alpine as build-stage
+FROM --platform=linux/amd64 node:14.3.0-alpine as build-stage
 
 WORKDIR /go/gobel-admin-client-example/app
 
@@ -10,7 +10,7 @@ ENV VUE_APP_API_ENDPOINT=${VUE_APP_API_ENDPOINT}
 RUN npm install && \
 	npm run local-build
 
-FROM nginx:1.19.0-alpine
+FROM --platform=linux/amd64 nginx:1.19.0-alpine
 
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./nginx/conf.d/gobel-admin-client-example.conf /etc/nginx/conf.d/gobel-admin-client-example.conf
