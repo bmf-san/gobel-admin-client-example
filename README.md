@@ -49,6 +49,8 @@ cp .env /app/.env.local
 
 ### Starts a dev server with hot-reload
 ```
+cd app/
+npm install
 npm run serve
 ```
 
