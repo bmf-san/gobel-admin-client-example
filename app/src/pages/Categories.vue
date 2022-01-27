@@ -31,8 +31,8 @@
               </td>
               <td>
                 <a
-                  @click.prevent.stop="deleteCategories(category.id)"
                   class="color-danger delete-link"
+                  @click.prevent.stop="deleteCategories(category.id)"
                   >Delete</a
                 >
               </td>
@@ -48,7 +48,7 @@
           :page="page"
           :limit="limit"
           :pagecount="pagecount"
-          @click.native="getCategories(page, limit)"
+          @click="getCategories(page, limit)"
         />
       </div>
     </div>
@@ -60,15 +60,23 @@ const defaultPage = 1;
 const defaultLimit = 10;
 const defaultPageCount = 10;
 
+import { defineComponent } from "vue";
 import Loader from "@/components/Loader.vue";
 import Pagination from "@/components/Pagination.vue";
 import apiClient from "../modules/apiClient";
 import storage from "../storage";
-export default {
+
+export default defineComponent({
   name: "Categories",
   components: {
     Loader,
     Pagination
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.page = to.query.page;
+    this.limit = to.query.limit;
+    this.getCategories(this.page, this.limit);
+    next();
   },
   data() {
     return {
@@ -87,12 +95,6 @@ export default {
     } else {
       this.getCategories(page, limit);
     }
-  },
-  beforeRouteUpdate(to, from, next) {
-    this.page = to.query.page;
-    this.limit = to.query.limit;
-    this.getCategories(this.page, this.limit);
-    next();
   },
   methods: {
     async getCategories(page, limit) {
@@ -141,7 +143,7 @@ export default {
       }
     }
   }
-};
+});
 </script>
 
 <style scoped>

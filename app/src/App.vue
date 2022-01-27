@@ -7,13 +7,15 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
-export default {
+
+export default defineComponent({
   name: "App",
   components: {
     Navigation,
     Footer
   }
-};
+});
 </script>

@@ -1,5 +1,4 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import Signin from "../pages/Signin.vue";
 import Home from "../pages/Home.vue";
 import Posts from "../pages/Posts.vue";
@@ -13,10 +12,9 @@ import CreateTag from "../pages/CreateTag.vue";
 import EditTag from "../pages/EditTag.vue";
 import Comments from "../pages/Comments.vue";
 import EditComment from "../pages/EditComment.vue";
+import Error from "../pages/Error.vue";
 import apiClient from "../modules/apiClient";
 import storage from "../storage";
-
-Vue.use(VueRouter);
 
 const routes = [
   {
@@ -95,12 +93,16 @@ const routes = [
     name: "EditComment",
     component: EditComment,
     meta: { requiresAuth: true }
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "Error",
+    component: Error
   }
 ];
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes
 });
 
@@ -119,6 +121,10 @@ router.beforeEach((to, from, next) => {
       })
       .then(function() {
         next();
+      })
+      .catch(function(error) {
+        console.log(error);
+        router.push({ name: "Signin" });
       });
   } else {
     // public pages

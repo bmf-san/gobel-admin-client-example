@@ -34,8 +34,8 @@
               </td>
               <td>
                 <a
-                  @click.prevent.stop="deletePost(post.id)"
                   class="color-danger delete-link"
+                  @click.prevent.stop="deletePost(post.id)"
                   >Delete</a
                 >
               </td>
@@ -51,7 +51,7 @@
           :page="page"
           :limit="limit"
           :pagecount="pagecount"
-          @click.native="getPosts(page, limit)"
+          @click="getPosts(page, limit)"
         />
       </div>
     </div>
@@ -63,14 +63,21 @@ const defaultPage = 1;
 const defaultLimit = 10;
 const defaultPageCount = 10;
 
+import { defineComponent } from "vue";
 import Loader from "@/components/Loader.vue";
 import Pagination from "@/components/Pagination.vue";
 import apiClient from "../modules/apiClient";
-export default {
+
+export default defineComponent({
   name: "Posts",
   components: {
     Loader,
     Pagination
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.getPosts(to.query.page, to.query.limit);
+
+    next();
   },
   data() {
     return {
@@ -89,11 +96,6 @@ export default {
     } else {
       this.getPosts(page, limit);
     }
-  },
-  beforeRouteUpdate(to, from, next) {
-    this.getPosts(to.query.page, to.query.limit);
-
-    next();
   },
   methods: {
     async getPosts(page, limit) {
@@ -142,7 +144,7 @@ export default {
       }
     }
   }
-};
+});
 </script>
 
 <style scoped>

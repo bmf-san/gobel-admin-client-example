@@ -13,30 +13,37 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "Pagination",
   props: {
-    name: String,
+    name: {
+      type: String,
+      required: true
+    },
     page: {
-      default: 1,
-      type: Number
+      type: Number,
+      required: true,
+      default: 1
     },
     limit: {
-      default: 10,
-      type: Number
+      type: Number,
+      required: true,
+      default: 10
     },
     pagecount: {
-      default: 10,
-      type: Number
-    },
-    refresh: Function
+      type: Number,
+      required: true,
+      default: 10
+    }
   },
   methods: {
     isCurrent(i) {
       return i == this.page;
     }
   }
-};
+});
 </script>
 
 <style scoped>
