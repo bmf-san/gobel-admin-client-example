@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@vue/compat": "^3.1.5",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "highlight.js": "^10.4.1",
     "marked": "^1.1.1",
     "sea.css": "^2.1.0",
