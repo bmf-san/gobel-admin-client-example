@@ -1,20 +1,20 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Signin from "../pages/Signin.vue";
-import Home from "../pages/Home.vue";
-import Posts from "../pages/Posts.vue";
-import EditPost from "../pages/EditPost.vue";
-import CreatePost from "../pages/CreatePost.vue";
-import Categories from "../pages/Categories.vue";
-import CreateCategory from "../pages/CreateCategory.vue";
-import EditCategory from "../pages/EditCategory.vue";
-import Tags from "../pages/Tags.vue";
-import CreateTag from "../pages/CreateTag.vue";
-import EditTag from "../pages/EditTag.vue";
-import Comments from "../pages/Comments.vue";
-import EditComment from "../pages/EditComment.vue";
-import Error from "../pages/Error.vue";
-import apiClient from "../modules/apiClient";
-import storage from "../storage";
+import Signin from "@/components/pages/Signin.vue";
+import Home from "@/components/pages/Home.vue";
+import Posts from "@/components/pages/Posts.vue";
+import EditPost from "@/components/pages/EditPost.vue";
+import CreatePost from "@/components/pages/CreatePost.vue";
+import Categories from "@/components/pages/Categories.vue";
+import CreateCategory from "@/components/pages/CreateCategory.vue";
+import EditCategory from "@/components/pages/EditCategory.vue";
+import Tags from "@/components/pages/Tags.vue";
+import CreateTag from "@/components/pages/CreateTag.vue";
+import EditTag from "@/components/pages/EditTag.vue";
+import Comments from "@/components/pages/Comments.vue";
+import EditComment from "@/components/pages/EditComment.vue";
+import NotFound from "@/components/pages/NotFound.vue";
+import apiClient from "@/modules/api/apiClient";
+import storage from "@/storage";
 
 const routes = [
   {
@@ -96,8 +96,8 @@ const routes = [
   },
   {
     path: "/:catchAll(.*)",
-    name: "Error",
-    component: Error
+    name: "NotFound",
+    component: NotFound
   }
 ];
 
