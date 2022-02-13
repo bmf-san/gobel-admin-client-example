@@ -6,7 +6,7 @@
         <h1>CreateTag</h1>
         <Error :error="error" />
         <form @submit.prevent="save">
-          <input type="text" name="name" v-model="name" />
+          <input v-model="name" type="text" name="name" />
           <input class="submit-button" type="submit" value="Save" />
         </form>
       </div>
@@ -15,12 +15,13 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import Loader from "@/components/Loader.vue";
 import Error from "../components/Error";
 import apiClient from "../modules/apiClient";
 import router from "../router";
 
-export default {
+export default defineComponent({
   name: "CreateTag",
   components: {
     Loader,
@@ -61,7 +62,7 @@ export default {
       }
     }
   }
-};
+});
 </script>
 
 <style scoped></style>

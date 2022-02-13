@@ -8,7 +8,7 @@
           <Error :error="error" />
           <form @submit.prevent="save">
             <label for="title">Title</label>
-            <input type="text" name="title" v-model="title" />
+            <input v-model="title" type="text" name="title" />
             <label for="tags">Tags</label>
             <multiselect
               v-model="tags"
@@ -25,8 +25,8 @@
               <option disabled></option>
               <option
                 v-for="category in categories"
-                :value="category.id"
                 :key="category.id"
+                :value="category.id"
               >
                 {{ category.name }}
               </option>
@@ -51,14 +51,15 @@
               />
               <label class="tab-label" for="preview-tab">Preview</label>
               <div class="col-tab padding-left-0rem padding-right-0rem">
+                <!-- eslint-disable-next-line vue/no-v-html -->
                 <div class="preview" v-html="compileMarkdown"></div>
               </div>
             </div>
             <label for="status">Status</label>
             <select v-model="status">
               <option disabled></option>
-              <option v-for="status of statuses" :key="status">
-                {{ status }}
+              <option v-for="statusVal in statuses" :key="statusVal">
+                {{ statusVal }}
               </option>
             </select>
             <input class="submit-button" type="submit" value="Save" />
@@ -70,6 +71,7 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import Loader from "@/components/Loader.vue";
 import Error from "../components/Error";
 import apiClient from "../modules/apiClient";
@@ -81,7 +83,7 @@ import "highlight.js/styles/github.css";
 import router from "../router";
 import storage from "../storage";
 
-export default {
+export default defineComponent({
   name: "CreatePost",
   components: {
     Loader,
@@ -102,6 +104,11 @@ export default {
       status: ""
     };
   },
+  computed: {
+    compileMarkdown: function() {
+      return marked(this.markdown);
+    }
+  },
   created() {
     this.getTags();
     this.getCategories();
@@ -111,11 +118,6 @@ export default {
         return hljs.highlightAuto(code, [lang]).value;
       }
     });
-  },
-  computed: {
-    compileMarkdown: function() {
-      return marked(this.markdown);
-    }
   },
   methods: {
     addTag(newTag) {
@@ -203,7 +205,7 @@ export default {
       }
     }
   }
-};
+});
 </script>
 
 <style scoped>

@@ -1,17 +1,23 @@
 <template>
   <div
-    class="alert alert-danger margin-bottom-2rem color-text-reverse"
     v-if="error"
+    class="alert alert-danger margin-bottom-2rem color-text-reverse"
   >
     <p>{{ error }}</p>
   </div>
 </template>
 
 <script>
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "Error",
   props: {
-    error: String
+    error: {
+      type: String,
+      required: false,
+      default: ""
+    }
   }
-};
+});
 </script>

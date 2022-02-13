@@ -6,7 +6,7 @@
           <div class="nav-left">
             <a class="nav-link-logo"><b>gobel-admin-client-example</b></a>
           </div>
-          <div class="nav-right" v-if="isActive">
+          <div v-if="isActive" class="nav-right">
             <router-link class="nav-link" to="/">Home</router-link>
             <router-link class="nav-link" to="/posts">Posts</router-link>
             <router-link class="nav-link" to="/categories"
@@ -27,11 +27,11 @@
               >gobel-admin-client-example</a
             >
           </div>
-          <div class="nav-right" v-if="isActive">
+          <div v-if="isActive" class="nav-right">
             <div id="nav-sp-drawer">
               <input id="nav-sp-input" type="checkbox" class="sp-hidden" />
               <label id="nav-sp-open" for="nav-sp-input"><span></span></label>
-              <label class="sp-hidden" id="nav-sp-close" for="nav-sp-input"
+              <label id="nav-sp-close" class="sp-hidden" for="nav-sp-input"
                 ><span></span
               ></label>
               <div id="nav-sp-content">
@@ -58,10 +58,12 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import apiClient from "../modules/apiClient";
 import router from "../router";
 import storage from "../storage";
-export default {
+
+export default defineComponent({
   name: "Navigation",
   computed: {
     isActive() {
@@ -92,5 +94,5 @@ export default {
       }
     }
   }
-};
+});
 </script>

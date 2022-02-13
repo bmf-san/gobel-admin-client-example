@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Error.vue matched snapshot 1`] = `""`;
+exports[`Error.vue matched snapshot 1`] = `<!--v-if-->`;

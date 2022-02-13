@@ -6,12 +6,12 @@
         <h1>Sign in</h1>
         <Error :error="error" />
         <form @submit.prevent="signin">
-          <input type="email" name="email" v-model="email" />
+          <input v-model="email" type="email" name="email" />
           <input
+            v-model="password"
             type="password"
             name="password"
             autocomplete="on"
-            v-model="password"
           />
           <input class="submit-button" type="submit" value="Sign in" />
         </form>
@@ -21,13 +21,14 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import apiClient from "../modules/apiClient";
 import router from "../router";
 import storage from "../storage";
 
-export default {
+export default defineComponent({
   name: "Signin",
   components: {
     Loader,
@@ -64,5 +65,5 @@ export default {
       }
     }
   }
-};
+});
 </script>

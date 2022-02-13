@@ -44,7 +44,7 @@
           :page="page"
           :limit="limit"
           :pagecount="pagecount"
-          @click.native="getComments(page, limit)"
+          @click="getComments(page, limit)"
         />
       </div>
     </div>
@@ -56,14 +56,22 @@ const defaultPage = 1;
 const defaultLimit = 10;
 const defaultPageCount = 10;
 
+import { defineComponent } from "vue";
 import Loader from "@/components/Loader.vue";
 import Pagination from "@/components/Pagination.vue";
 import apiClient from "../modules/apiClient";
-export default {
+
+export default defineComponent({
   name: "Comments",
   components: {
     Loader,
     Pagination
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.page = to.query.page;
+    this.limit = to.query.limit;
+    this.getComments(this.page, this.limit);
+    next();
   },
   data() {
     return {
@@ -82,12 +90,6 @@ export default {
     } else {
       this.getComments(page, limit);
     }
-  },
-  beforeRouteUpdate(to, from, next) {
-    this.page = to.query.page;
-    this.limit = to.query.limit;
-    this.getComments(this.page, this.limit);
-    next();
   },
   methods: {
     async getComments(page, limit) {
@@ -113,7 +115,7 @@ export default {
       }
     }
   }
-};
+});
 </script>
 
 <style scoped>

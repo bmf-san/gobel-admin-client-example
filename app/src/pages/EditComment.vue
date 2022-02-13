@@ -12,8 +12,8 @@
           <p>{{ body }}</p>
           <select v-model="status">
             <option disabled value="">Select a status</option>
-            <option v-for="status of statuses" :key="status">
-              {{ status }}
+            <option v-for="statusVal of statuses" :key="statusVal">
+              {{ statusVal }}
             </option>
           </select>
           <input class="submit-button" type="submit" value="Save" />
@@ -24,13 +24,14 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import Loader from "@/components/Loader.vue";
 import Error from "../components/Error";
 import consts from "../consts/comments";
 import apiClient from "../modules/apiClient";
 import storage from "../storage";
 
-export default {
+export default defineComponent({
   name: "EditComment",
   components: {
     Loader,
@@ -121,5 +122,5 @@ export default {
       }
     }
   }
-};
+});
 </script>
