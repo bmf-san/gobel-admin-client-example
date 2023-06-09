@@ -84,7 +84,7 @@ import apiPosts from "@/modules/api/posts";
 import apiTags from "@/modules/api/tags";
 import apiCategories from "@/modules/api/categories";
 import consts from "@/consts/posts";
-import marked from "marked";
+import {marked} from "marked";
 import Multiselect from "@vueform/multiselect";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
@@ -200,7 +200,7 @@ export default defineComponent({
     getPostById(route.params.id);
     getTags();
     getCategories();
-    marked.setOptions({
+    marked.use({
       langPrefix: "",
       highlight: function(code, lang) {
         return hljs.highlightAuto(code, [lang]).value;

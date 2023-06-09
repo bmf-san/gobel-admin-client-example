@@ -5,17 +5,17 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "test:unit": "vue-cli-service test:unit",
-	"test:update-snapshot": "vue-cli-service test:unit -u",
     "lint": "vue-cli-service lint --fix",
     "local-build": "vue-cli-service build --mode=local",
-    "prod-build": "vue-cli-service build --mode-production"
+    "prod-build": "vue-cli-service build --mode-production",
+    "test:update-snapshot": "vue-cli-service test:unit -u"
   },
   "dependencies": {
     "@vue/compat": "^3.2.31",
     "@vueform/multiselect": "^2.3.3",
     "axios": "^0.21.4",
     "highlight.js": "^10.7.3",
-    "marked": "^1.2.9",
+    "marked": "^4.0.10",
     "sea.css": "^2.1.0",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12"
@@ -23,17 +23,21 @@
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
-    "@vue/cli-plugin-eslint": "~4.5.15",
-    "@vue/cli-plugin-router": "~4.5.15",
-    "@vue/cli-plugin-unit-jest": "~4.5.15",
-    "@vue/cli-service": "~4.5.15",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-plugin-router": "~5.0.8",
+    "@vue/cli-plugin-unit-jest": "~5.0.0",
+    "@vue/cli-service": "~5.0.8",
     "@vue/compiler-sfc": "^3.2.31",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/test-utils": "^2.0.0-rc.18",
-    "eslint": "^6.7.2",
+    "@vue/vue3-jest": "^27.0.0",
+    "babel-jest": "^27.0.6",
+    "eslint": "^8.42.0",
     "eslint-plugin-prettier": "^3.4.1",
-    "eslint-plugin-vue": "^7.20.0",
+    "eslint-plugin-vue": "^9.14.1",
+    "jest": "^27.0.5",
     "prettier": "^1.19.1",
-    "vue-jest": "^5.0.0-alpha.10"
+    "ts-jest": "^27.0.4",
+    "vue3-jest": "^27.0.0-alpha.1"
   }
 }

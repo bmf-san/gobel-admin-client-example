@@ -83,7 +83,7 @@ import apiPosts from "@/modules/api/posts";
 import apiTags from "@/modules/api/tags";
 import apiCategories from "@/modules/api/categories";
 import consts from "@/consts/posts";
-import marked from "marked";
+import {marked} from "marked";
 import Multiselect from "@vueform/multiselect";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
@@ -162,9 +162,9 @@ export default defineComponent({
           compiledMarkdown.value,
           status.value
         )
-        .then(res => {
+        .then(() => {
           loading.value = false;
-          router.push({ name: "EditPost", params: { id: res.data.id } });
+          router.push({ name: "Posts" });
         })
         .catch(e => {
           console.log(e);
@@ -175,7 +175,7 @@ export default defineComponent({
     };
     getTags();
     getCategories();
-    marked.setOptions({
+    marked.use({
       langPrefix: "",
       highlight: function(code, lang) {
         return hljs.highlightAuto(code, [lang]).value;
