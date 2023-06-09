@@ -47,7 +47,7 @@ export default defineComponent({
       loading.value = true;
       apiTags
         .postTag(text.value)
-        .then(res => {
+        .then(() => {
           loading.value = false;
           router.push({ name: "Tags" });
         })

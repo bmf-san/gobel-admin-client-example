@@ -47,7 +47,7 @@ export default defineComponent({
       loading.value = true;
       apiCategories
         .postCategory(text.value)
-        .then(res => {
+        .then(() => {
           loading.value = false;
           router.push({ name: "Categories" });
         })
