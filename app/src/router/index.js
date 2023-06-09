@@ -20,94 +20,94 @@ const routes = [
   {
     path: "/signin",
     name: "Signin",
-    component: Signin
+    component: Signin,
   },
   {
     path: "/",
     name: "Home",
     component: Home,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/posts",
     name: "Posts",
     component: Posts,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/posts/create",
     name: "CreatePost",
     component: CreatePost,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/posts/:id",
     name: "EditPost",
     component: EditPost,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/categories",
     name: "Categories",
     component: Categories,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/categories/create",
     name: "CreateCategory",
     component: CreateCategory,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/categories/:id",
     name: "EditCategory",
     component: EditCategory,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/tags",
     name: "Tags",
     component: Tags,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/tags/create",
     name: "CreateTag",
     component: CreateTag,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/tags/:id",
     name: "EditTag",
     component: EditTag,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/comments",
     name: "Comments",
     component: Comments,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/comments/:id",
     name: "EditComment",
     component: EditComment,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/:catchAll(.*)",
     name: "NotFound",
-    component: NotFound
-  }
+    component: NotFound,
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     // if not signed in
     if (storage.getIsSignin() == false) {
       router.push({ name: "Signin" });
@@ -116,13 +116,13 @@ router.beforeEach((to, from, next) => {
     apiClient
       .get("/private/me", {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(function() {
+      .then(function () {
         next();
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
         router.push({ name: "Signin" });
       });

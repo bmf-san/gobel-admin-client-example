@@ -35,14 +35,14 @@ export default defineComponent({
     tableHeaders: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     comments: {
       type: Object,
       required: true,
-      default: () => {}
-    }
-  }
+      default: () => {},
+    },
+  },
 });
 </script>
 

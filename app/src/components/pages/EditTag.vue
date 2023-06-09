@@ -33,7 +33,7 @@ export default defineComponent({
     Main,
     Loader,
     Alert,
-    FormCreateSingleInput
+    FormCreateSingleInput,
   },
   setup() {
     const route = useRoute();
@@ -43,17 +43,17 @@ export default defineComponent({
     const text = ref("");
     const textComputed = computed({
       get: () => text.value,
-      set: value => (text.value = value)
+      set: (value) => (text.value = value),
     });
-    const getTagById = async id => {
+    const getTagById = async (id) => {
       loading.value = true;
       apiTags
         .getTagById(id)
-        .then(res => {
+        .then((res) => {
           text.value = res.data.name;
           loading.value = false;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -70,7 +70,7 @@ export default defineComponent({
           loading.value = false;
           router.push({ name: "Tags" });
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -82,8 +82,8 @@ export default defineComponent({
       loading,
       text,
       textComputed,
-      save
+      save,
     };
-  }
+  },
 });
 </script>

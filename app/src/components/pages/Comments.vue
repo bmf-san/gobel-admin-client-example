@@ -42,7 +42,7 @@ export default defineComponent({
     Main,
     Loader,
     ListComments,
-    Pagination
+    Pagination,
   },
   setup() {
     const route = useRoute();
@@ -52,7 +52,7 @@ export default defineComponent({
       "Status",
       "Created at",
       "Updated at",
-      "Edit"
+      "Edit",
     ];
     const loading = ref("");
     const comments = ref({});
@@ -64,14 +64,14 @@ export default defineComponent({
       loading.value = true;
       apiComments
         .getCommentsByQueryParams(paramPage, paramLimit)
-        .then(res => {
+        .then((res) => {
           comments.value = res.data;
           page.value = Number(res.headers["pagination-page"]);
           limit.value = Number(res.headers["pagination-limit"]);
           pageCount.value = Number(res.headers["pagination-pagecount"]);
           loading.value = false;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -95,8 +95,8 @@ export default defineComponent({
       comments,
       page,
       limit,
-      pageCount
+      pageCount,
     };
-  }
+  },
 });
 </script>

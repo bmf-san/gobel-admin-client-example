@@ -13,8 +13,8 @@ import Main from "@/components/templates/Main";
 export default defineComponent({
   name: "Home",
   components: {
-    Main
-  }
+    Main,
+  },
 });
 </script>
 

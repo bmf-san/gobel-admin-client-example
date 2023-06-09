@@ -13,7 +13,7 @@ export default defineComponent({
   name: "Main",
   components: {
     Header,
-    Footer
-  }
+    Footer,
+  },
 });
 </script>

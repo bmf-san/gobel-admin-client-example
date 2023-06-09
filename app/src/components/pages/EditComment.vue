@@ -40,7 +40,7 @@ export default defineComponent({
     Main,
     Loader,
     Alert,
-    FormComment
+    FormComment,
   },
   setup() {
     const route = useRoute();
@@ -52,36 +52,36 @@ export default defineComponent({
     const selected = ref("");
     const selectedComputed = computed({
       get: () => selected.value,
-      set: value => (selected.value = value)
+      set: (value) => (selected.value = value),
     });
     const selectOptions = consts.STATUSES;
     const postId = ref("");
-    const getPostById = async id => {
+    const getPostById = async (id) => {
       loading.value = true;
       apiPosts
         .getPostById(id)
-        .then(res => {
+        .then((res) => {
           title.value = res.data.title;
           loading.value = false;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
           loading.value = false;
         });
     };
-    const getCommentById = async id => {
+    const getCommentById = async (id) => {
       loading.value = true;
       apiComments
         .getCommentById(id)
-        .then(res => {
+        .then((res) => {
           postId.value = res.data.id;
           body.value = res.data.body;
           selected.value = res.data.status;
           loading.value = false;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -100,7 +100,7 @@ export default defineComponent({
           loading.value = false;
           router.push({ name: "Comments" });
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -117,8 +117,8 @@ export default defineComponent({
       selectOptions,
       getPostById,
       getCommentById,
-      save
+      save,
     };
-  }
+  },
 });
 </script>

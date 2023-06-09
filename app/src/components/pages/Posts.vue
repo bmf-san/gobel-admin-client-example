@@ -54,7 +54,7 @@ export default defineComponent({
     Main,
     Loader,
     ListPosts,
-    Pagination
+    Pagination,
   },
   setup() {
     const route = useRoute();
@@ -66,7 +66,7 @@ export default defineComponent({
       "Created at",
       "Updated at",
       "Edit",
-      "Delete"
+      "Delete",
     ];
     const loading = ref("");
     const posts = ref({});
@@ -78,21 +78,21 @@ export default defineComponent({
       loading.value = true;
       apiPosts
         .getPostsByQueryParams(paramPage, paramLimit)
-        .then(res => {
+        .then((res) => {
           posts.value = res.data;
           page.value = Number(res.headers["pagination-page"]);
           limit.value = Number(res.headers["pagination-limit"]);
           pageCount.value = Number(res.headers["pagination-pagecount"]);
           loading.value = false;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
           loading.value = false;
         });
     };
-    const deletePost = async id => {
+    const deletePost = async (id) => {
       if (!confirm("Is it really okay to delete it?")) {
         return;
       }
@@ -126,8 +126,8 @@ export default defineComponent({
       page,
       limit,
       pageCount,
-      deletePost
+      deletePost,
     };
-  }
+  },
 });
 </script>

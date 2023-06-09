@@ -15,37 +15,37 @@ export default defineComponent({
   name: "FormCreateSingleInput",
   components: {
     ButtonSubmit,
-    InputText
+    InputText,
   },
   props: {
     text: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     inputTextName: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     buttonSubmitValue: {
       type: String,
       required: true,
-      default: ""
-    }
+      default: "",
+    },
   },
   emits: ["update:text", "submitForm"],
   setup(props, { emit }) {
     const { text } = toRefs(props);
     const textComputed = computed({
       get: () => text.value,
-      set: value => {
+      set: (value) => {
         emit("update:text", value);
-      }
+      },
     });
     return {
-      textComputed
+      textComputed,
     };
-  }
+  },
 });
 </script>

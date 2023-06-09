@@ -19,37 +19,37 @@ export default defineComponent({
   name: "FormComment",
   components: {
     ButtonSubmit,
-    SelectOption
+    SelectOption,
   },
   props: {
     selected: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     selectOptions: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     buttonSubmitValue: {
       type: String,
       required: true,
-      default: ""
-    }
+      default: "",
+    },
   },
   emits: ["update:selected", "submitForm"],
   setup(props, { emit }) {
     const { selected } = toRefs(props);
     const selectedComputed = computed({
       get: () => selected.value,
-      set: value => {
+      set: (value) => {
         emit("update:selected", value);
-      }
+      },
     });
     return {
-      selectedComputed
+      selectedComputed,
     };
-  }
+  },
 });
 </script>

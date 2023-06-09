@@ -94,7 +94,7 @@ export default defineComponent({
   components: {
     Loader,
     Alert,
-    Multiselect
+    Multiselect,
   },
   setup() {
     const router = useRouter();
@@ -115,16 +115,16 @@ export default defineComponent({
       loading.value = true;
       apiTags
         .getTags()
-        .then(res => {
-          tagOptions.value = res.data.map(tag => {
+        .then((res) => {
+          tagOptions.value = res.data.map((tag) => {
             return {
               value: tag.id,
-              label: tag.name
+              label: tag.name,
             };
           });
           loading.value = false;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -135,11 +135,11 @@ export default defineComponent({
       loading.value = true;
       apiCategories
         .getCategories()
-        .then(res => {
+        .then((res) => {
           categories.value = res.data;
           loading.value = false;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -148,9 +148,9 @@ export default defineComponent({
     };
     const save = async () => {
       loading.value = true;
-      const tagIds = tags.value.map(id => {
+      const tagIds = tags.value.map((id) => {
         return {
-          id: id
+          id: id,
         };
       });
       apiPosts
@@ -162,11 +162,11 @@ export default defineComponent({
           compiledMarkdown.value,
           status.value
         )
-        .then(res => {
+        .then((res) => {
           loading.value = false;
           router.push({ name: "EditPost", params: { id: res.data.id } });
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -177,9 +177,9 @@ export default defineComponent({
     getCategories();
     marked.setOptions({
       langPrefix: "",
-      highlight: function(code, lang) {
+      highlight: function (code, lang) {
         return hljs.highlightAuto(code, [lang]).value;
-      }
+      },
     });
     return {
       loading,
@@ -195,9 +195,9 @@ export default defineComponent({
       compiledMarkdown,
       getTags,
       getCategories,
-      save
+      save,
     };
-  }
+  },
 });
 </script>
 

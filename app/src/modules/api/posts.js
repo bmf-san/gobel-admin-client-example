@@ -1,15 +1,15 @@
 import apiClient from "@/modules/api/apiClient";
 import storage from "@/storage";
 
-const getPostById = async id => {
+const getPostById = async (id) => {
   try {
     const res = await apiClient
       .get(`/private/posts/${id}`, {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -23,10 +23,10 @@ const getPostsByQueryParams = async (page, limit) => {
     const res = await apiClient
       .get(`/private/posts?page=${page}&limit=${limit}`, {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -53,15 +53,15 @@ const postPost = async (
           title: title,
           md_body: markdown,
           html_body: compiledMarkdown,
-          status: status
+          status: status,
         },
         {
           headers: {
-            Authorization: "Bearer " + storage.getAccessToken()
-          }
+            Authorization: "Bearer " + storage.getAccessToken(),
+          },
         }
       )
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -89,15 +89,15 @@ const patchPost = async (
           title: title,
           md_body: markdown,
           html_body: compiledMarkdown,
-          status: status
+          status: status,
         },
         {
           headers: {
-            Authorization: "Bearer " + storage.getAccessToken()
-          }
+            Authorization: "Bearer " + storage.getAccessToken(),
+          },
         }
       )
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -106,15 +106,15 @@ const patchPost = async (
   }
 };
 
-const deletePost = async id => {
+const deletePost = async (id) => {
   try {
     const res = await apiClient
       .delete(`/private/posts/${id}`, {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -128,7 +128,7 @@ const apiPosts = {
   getPostsByQueryParams,
   postPost,
   patchPost,
-  deletePost
+  deletePost,
 };
 
 export default apiPosts;

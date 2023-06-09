@@ -54,7 +54,7 @@ export default defineComponent({
     Main,
     Loader,
     ListCategories,
-    Pagination
+    Pagination,
   },
   setup() {
     const route = useRoute();
@@ -64,7 +64,7 @@ export default defineComponent({
       "Created at",
       "Updated at",
       "Edit",
-      "Delete"
+      "Delete",
     ];
     const loading = ref("");
     const categories = ref({});
@@ -76,21 +76,21 @@ export default defineComponent({
       loading.value = true;
       apiCategories
         .getCategoriesByQueryParams(paramPage, paramLimit)
-        .then(res => {
+        .then((res) => {
           categories.value = res.data;
           page.value = Number(res.headers["pagination-page"]);
           limit.value = Number(res.headers["pagination-limit"]);
           pageCount.value = Number(res.headers["pagination-pagecount"]);
           loading.value = false;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
           loading.value = false;
         });
     };
-    const deleteCategory = async id => {
+    const deleteCategory = async (id) => {
       if (!confirm("Is it really okay to delete it?")) {
         return;
       }
@@ -124,8 +124,8 @@ export default defineComponent({
       page,
       limit,
       pageCount,
-      deleteCategory
+      deleteCategory,
     };
-  }
+  },
 });
 </script>

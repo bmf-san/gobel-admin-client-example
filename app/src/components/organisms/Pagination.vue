@@ -20,32 +20,32 @@ export default defineComponent({
   props: {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     page: {
       type: Number,
       required: true,
-      default: 1
+      default: 1,
     },
     limit: {
       type: Number,
       required: true,
-      default: 10
+      default: 10,
     },
     pagecount: {
       type: Number,
       required: true,
-      default: 10
-    }
+      default: 10,
+    },
   },
   setup(props) {
-    const isCurrent = i => {
+    const isCurrent = (i) => {
       return i == props.page;
     };
     return {
-      isCurrent
+      isCurrent,
     };
-  }
+  },
 });
 </script>
 

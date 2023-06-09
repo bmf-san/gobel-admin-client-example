@@ -95,7 +95,7 @@ export default defineComponent({
   components: {
     Loader,
     Alert,
-    Multiselect
+    Multiselect,
   },
   setup() {
     const route = useRoute();
@@ -113,13 +113,13 @@ export default defineComponent({
     });
     const status = ref("");
     const statuses = consts.STATUSES;
-    const getPostById = async id => {
+    const getPostById = async (id) => {
       loading.value = true;
       apiPosts
         .getPostById(id)
-        .then(res => {
+        .then((res) => {
           categoryId.value = res.data.category.id;
-          tags.value = res.data.tags.map(id => {
+          tags.value = res.data.tags.map((id) => {
             return id.id;
           });
           title.value = res.data.title;
@@ -127,7 +127,7 @@ export default defineComponent({
           status.value = res.data.status;
           loading.value = false;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -138,16 +138,16 @@ export default defineComponent({
       loading.value = true;
       apiTags
         .getTags()
-        .then(res => {
-          tagOptions.value = res.data.map(tag => {
+        .then((res) => {
+          tagOptions.value = res.data.map((tag) => {
             return {
               value: tag.id,
-              label: tag.name
+              label: tag.name,
             };
           });
           loading.value = false;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -158,11 +158,11 @@ export default defineComponent({
       loading.value = true;
       apiCategories
         .getCategories()
-        .then(res => {
+        .then((res) => {
           categories.value = res.data;
           loading.value = false;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -171,9 +171,9 @@ export default defineComponent({
     };
     const save = async () => {
       loading.value = true;
-      const tagIds = tags.value.map(id => {
+      const tagIds = tags.value.map((id) => {
         return {
-          id: id
+          id: id,
         };
       });
       apiPosts
@@ -190,7 +190,7 @@ export default defineComponent({
           loading.value = false;
           router.push({ name: "Posts" });
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -202,9 +202,9 @@ export default defineComponent({
     getCategories();
     marked.setOptions({
       langPrefix: "",
-      highlight: function(code, lang) {
+      highlight: function (code, lang) {
         return hljs.highlightAuto(code, [lang]).value;
-      }
+      },
     });
     return {
       loading,
@@ -220,9 +220,9 @@ export default defineComponent({
       compiledMarkdown,
       getTags,
       getCategories,
-      save
+      save,
     };
-  }
+  },
 });
 </script>
 

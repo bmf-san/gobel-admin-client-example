@@ -44,26 +44,26 @@ import ButtonDelete from "@/components/atoms/ButtonDelete.vue";
 export default defineComponent({
   name: "ListPosts",
   components: {
-    ButtonDelete
+    ButtonDelete,
   },
   props: {
     buttonText: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     tableHeaders: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     posts: {
       type: Object,
       required: true,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
-  emits: ["deleteItems"]
+  emits: ["deleteItems"],
 });
 </script>
 

@@ -93,7 +93,7 @@ export default defineComponent({
           loading.value = false;
           router.push({ name: "Signin" });
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -103,8 +103,8 @@ export default defineComponent({
     return {
       isActive,
       loading,
-      signout
+      signout,
     };
-  }
+  },
 });
 </script>

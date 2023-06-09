@@ -16,24 +16,24 @@ export default defineComponent({
     selected: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     options: {
       type: Object,
       required: true,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   emits: ["update:selected"],
   setup(props, { emit }) {
     const { selected } = toRefs(props);
     const selectedComputed = computed({
       get: () => selected.value,
-      set: value => emit("update:selected", value)
+      set: (value) => emit("update:selected", value),
     });
     return {
-      selectedComputed
+      selectedComputed,
     };
-  }
+  },
 });
 </script>

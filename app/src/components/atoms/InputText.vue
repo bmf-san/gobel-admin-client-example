@@ -11,24 +11,24 @@ export default defineComponent({
     text: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     name: {
       type: String,
       required: true,
-      default: ""
-    }
+      default: "",
+    },
   },
   emits: ["update:text"],
   setup(props, { emit }) {
     const { text } = toRefs(props);
     const textComputed = computed({
       get: () => text.value,
-      set: value => emit("update:text", value)
+      set: (value) => emit("update:text", value),
     });
     return {
-      textComputed
+      textComputed,
     };
-  }
+  },
 });
 </script>

@@ -36,7 +36,7 @@ export default defineComponent({
     Main,
     Loader,
     Alert,
-    FormSignin
+    FormSignin,
   },
   setup() {
     const router = useRouter();
@@ -45,12 +45,12 @@ export default defineComponent({
     const email = ref("");
     const emailComputed = computed({
       get: () => email.value,
-      set: value => (email.value = value)
+      set: (value) => (email.value = value),
     });
     const password = ref("");
     const passwordComputed = computed({
       get: () => password.value,
-      set: value => (password.value = value)
+      set: (value) => (password.value = value),
     });
     const signin = async () => {
       loading.value = true;
@@ -60,7 +60,7 @@ export default defineComponent({
           loading.value = false;
           router.push({ name: "Home" });
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
           error.value = e.response.data.message;
         })
@@ -75,8 +75,8 @@ export default defineComponent({
       emailComputed,
       password,
       passwordComputed,
-      signin
+      signin,
     };
-  }
+  },
 });
 </script>

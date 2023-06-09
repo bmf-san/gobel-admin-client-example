@@ -22,59 +22,59 @@ export default defineComponent({
   components: {
     ButtonSubmit,
     InputEmail,
-    InputPassword
+    InputPassword,
   },
   props: {
     email: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     inputEmailName: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     password: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     inputPasswordName: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     inputPasswordIsAutocomplete: {
       type: Boolean,
-      default: false
+      default: false,
     },
     buttonSubmitValue: {
       type: String,
       required: true,
-      default: ""
-    }
+      default: "",
+    },
   },
   emits: ["update:email", "update:password", "submitForm"],
   setup(props, { emit }) {
     const { email } = toRefs(props);
     const emailComputed = computed({
       get: () => email.value,
-      set: value => {
+      set: (value) => {
         emit("update:email", value);
-      }
+      },
     });
     const { password } = toRefs(props);
     const passwordComputed = computed({
       get: () => password.value,
-      set: value => {
+      set: (value) => {
         emit("update:password", value);
-      }
+      },
     });
     return {
       emailComputed,
-      passwordComputed
+      passwordComputed,
     };
-  }
+  },
 });
 </script>

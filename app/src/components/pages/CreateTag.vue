@@ -33,7 +33,7 @@ export default defineComponent({
     Main,
     Loader,
     Alert,
-    FormCreateSingleInput
+    FormCreateSingleInput,
   },
   setup() {
     const error = ref("");
@@ -41,17 +41,17 @@ export default defineComponent({
     const text = ref("");
     const textComputed = computed({
       get: () => text.value,
-      set: value => (text.value = value)
+      set: (value) => (text.value = value),
     });
     const save = async () => {
       loading.value = true;
       apiTags
         .postTag(text.value)
-        .then(res => {
+        .then((res) => {
           loading.value = false;
           router.push({ name: "EditTag", params: { id: res.data.id } });
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         })
         .finally(() => {
@@ -63,9 +63,9 @@ export default defineComponent({
       loading,
       text,
       textComputed,
-      save
+      save,
     };
-  }
+  },
 });
 </script>
 

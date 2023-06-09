@@ -16,28 +16,28 @@ export default defineComponent({
     password: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     name: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     autocomplete: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   emits: ["update:password"],
   setup(props, { emit }) {
     const { password } = toRefs(props);
     const passwordComputed = computed({
       get: () => password.value,
-      set: value => emit("update:password", value)
+      set: (value) => emit("update:password", value),
     });
     return {
-      passwordComputed
+      passwordComputed,
     };
-  }
+  },
 });
 </script>

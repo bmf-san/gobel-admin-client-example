@@ -15,10 +15,10 @@ export default defineComponent({
     text: {
       type: String,
       required: true,
-      default: ""
-    }
+      default: "",
+    },
   },
-  emits: ["deleteItems"]
+  emits: ["deleteItems"],
 });
 </script>
 

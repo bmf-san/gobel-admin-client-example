@@ -8,15 +8,15 @@ const postSignin = async (email, password) => {
         `/signin`,
         {
           email: email,
-          password: password
+          password: password,
         },
         {
           headers: {
-            Authorization: "Bearer " + storage.getAccessToken()
-          }
+            Authorization: "Bearer " + storage.getAccessToken(),
+          },
         }
       )
-      .then(res => {
+      .then((res) => {
         storage.setAccessToken(res.data.access_token);
         storage.setRefreshToken(res.data.refresh_token);
         storage.setIsSignin(true);
@@ -29,7 +29,7 @@ const postSignin = async (email, password) => {
 };
 
 const apiSignin = {
-  postSignin
+  postSignin,
 };
 
 export default apiSignin;

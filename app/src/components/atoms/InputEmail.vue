@@ -11,24 +11,24 @@ export default defineComponent({
     email: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     name: {
       type: String,
       required: true,
-      default: ""
-    }
+      default: "",
+    },
   },
   emits: ["update:email"],
   setup(props, { emit }) {
     const { email } = toRefs(props);
     const emailComputed = computed({
       get: () => email.value,
-      set: value => emit("update:email", value)
+      set: (value) => emit("update:email", value),
     });
     return {
-      emailComputed
+      emailComputed,
     };
-  }
+  },
 });
 </script>

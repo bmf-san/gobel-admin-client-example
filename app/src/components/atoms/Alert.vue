@@ -16,8 +16,8 @@ export default defineComponent({
     error: {
       type: String,
       required: false,
-      default: ""
-    }
-  }
+      default: "",
+    },
+  },
 });
 </script>

@@ -13,7 +13,7 @@ import Main from "@/components/templates/Main";
 export default defineComponent({
   name: "NotFound",
   components: {
-    Main
-  }
+    Main,
+  },
 });
 </script>

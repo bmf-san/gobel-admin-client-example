@@ -22,7 +22,7 @@ const storage = {
   },
   removeRefreshToken() {
     localStorage.removeItem("refresh_token");
-  }
+  },
 };
 
 export default storage;

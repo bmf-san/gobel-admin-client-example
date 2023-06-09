@@ -1,15 +1,15 @@
 import apiClient from "@/modules/api/apiClient";
 import storage from "@/storage";
 
-const getCommentById = async id => {
+const getCommentById = async (id) => {
   try {
     const res = await apiClient
       .get(`/private/comments/${id}`, {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -23,10 +23,10 @@ const getCommentsByQueryParams = async (page, limit) => {
     const res = await apiClient
       .get(`/private/comments?page=${page}&limit=${limit}`, {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -41,15 +41,15 @@ const patchComment = async (id, status) => {
       .patch(
         `/private/comments/${id}/status`,
         {
-          status: status
+          status: status,
         },
         {
           headers: {
-            Authorization: "Bearer " + storage.getAccessToken()
-          }
+            Authorization: "Bearer " + storage.getAccessToken(),
+          },
         }
       )
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -61,7 +61,7 @@ const patchComment = async (id, status) => {
 const apiComments = {
   getCommentById,
   getCommentsByQueryParams,
-  patchComment
+  patchComment,
 };
 
 export default apiComments;

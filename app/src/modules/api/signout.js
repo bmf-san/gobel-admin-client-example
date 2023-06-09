@@ -9,11 +9,11 @@ const postSignout = async () => {
         {},
         {
           headers: {
-            Authorization: "Bearer " + storage.getAccessToken()
-          }
+            Authorization: "Bearer " + storage.getAccessToken(),
+          },
         }
       )
-      .then(res => {
+      .then((res) => {
         storage.removeAccessToken();
         storage.removeRefreshToken();
         storage.setIsSignin(false);
@@ -26,7 +26,7 @@ const postSignout = async () => {
 };
 
 const apiSignout = {
-  postSignout
+  postSignout,
 };
 
 export default apiSignout;

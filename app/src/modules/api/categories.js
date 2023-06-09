@@ -1,15 +1,15 @@
 import apiClient from "@/modules/api/apiClient";
 import storage from "@/storage";
 
-const getCategoryById = async id => {
+const getCategoryById = async (id) => {
   try {
     const res = await apiClient
       .get(`/private/categories/${id}`, {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -23,10 +23,10 @@ const getCategoriesByQueryParams = async (page, limit) => {
     const res = await apiClient
       .get(`/private/categories?page=${page}&limit=${limit}`, {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -40,10 +40,10 @@ const getCategories = async () => {
     const res = await apiClient
       .get(`/private/categories?page=1&limit=9999`, {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -52,21 +52,21 @@ const getCategories = async () => {
   }
 };
 
-const postCategory = async name => {
+const postCategory = async (name) => {
   try {
     const res = await apiClient
       .post(
         `/private/categories`,
         {
-          name: name
+          name: name,
         },
         {
           headers: {
-            Authorization: "Bearer " + storage.getAccessToken()
-          }
+            Authorization: "Bearer " + storage.getAccessToken(),
+          },
         }
       )
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -81,15 +81,15 @@ const patchCategory = async (id, name) => {
       .patch(
         `/private/categories/${id}`,
         {
-          name: name
+          name: name,
         },
         {
           headers: {
-            Authorization: "Bearer " + storage.getAccessToken()
-          }
+            Authorization: "Bearer " + storage.getAccessToken(),
+          },
         }
       )
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -98,15 +98,15 @@ const patchCategory = async (id, name) => {
   }
 };
 
-const deleteCategory = async id => {
+const deleteCategory = async (id) => {
   try {
     const res = await apiClient
       .delete(`/private/categories/${id}`, {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -121,7 +121,7 @@ const apiCategories = {
   getCategories,
   postCategory,
   patchCategory,
-  deleteCategory
+  deleteCategory,
 };
 
 export default apiCategories;

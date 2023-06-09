@@ -1,15 +1,15 @@
 import apiClient from "@/modules/api/apiClient";
 import storage from "@/storage";
 
-const getTagById = async id => {
+const getTagById = async (id) => {
   try {
     const res = await apiClient
       .get(`/private/tags/${id}`, {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -23,10 +23,10 @@ const getTagsByQueryParams = async (page, limit) => {
     const res = await apiClient
       .get(`/private/tags?page=${page}&limit=${limit}`, {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -40,10 +40,10 @@ const getTags = async () => {
     const res = await apiClient
       .get(`/private/tags?page=1&limit=9999`, {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -52,21 +52,21 @@ const getTags = async () => {
   }
 };
 
-const postTag = async name => {
+const postTag = async (name) => {
   try {
     const res = await apiClient
       .post(
         `/private/tags`,
         {
-          name: name
+          name: name,
         },
         {
           headers: {
-            Authorization: "Bearer " + storage.getAccessToken()
-          }
+            Authorization: "Bearer " + storage.getAccessToken(),
+          },
         }
       )
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -81,15 +81,15 @@ const patchTag = async (id, name) => {
       .patch(
         `/private/tags/${id}`,
         {
-          name: name
+          name: name,
         },
         {
           headers: {
-            Authorization: "Bearer " + storage.getAccessToken()
-          }
+            Authorization: "Bearer " + storage.getAccessToken(),
+          },
         }
       )
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -98,15 +98,15 @@ const patchTag = async (id, name) => {
   }
 };
 
-const deleteTag = async id => {
+const deleteTag = async (id) => {
   try {
     const res = await apiClient
       .delete(`/private/tags/${id}`, {
         headers: {
-          Authorization: "Bearer " + storage.getAccessToken()
-        }
+          Authorization: "Bearer " + storage.getAccessToken(),
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res;
       });
     return res;
@@ -121,7 +121,7 @@ const apiTags = {
   getTags,
   postTag,
   patchTag,
-  deleteTag
+  deleteTag,
 };
 
 export default apiTags;
