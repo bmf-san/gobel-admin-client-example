@@ -15,7 +15,7 @@
     "@vueform/multiselect": "^2.3.3",
     "axios": "^0.21.4",
     "highlight.js": "^10.7.3",
-    "marked": "^1.2.9",
+    "marked": "^4.0.10",
     "sea.css": "^2.1.0",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12"
