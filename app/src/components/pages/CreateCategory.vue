@@ -49,7 +49,7 @@ export default defineComponent({
         .postCategory(text.value)
         .then(res => {
           loading.value = false;
-          router.push({ name: "EditCategory", params: { id: res.data.id } });
+          router.push({ name: "Categories" });
         })
         .catch(e => {
           console.log(e);

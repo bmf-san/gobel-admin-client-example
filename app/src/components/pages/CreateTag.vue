@@ -49,7 +49,7 @@ export default defineComponent({
         .postTag(text.value)
         .then(res => {
           loading.value = false;
-          router.push({ name: "EditTag", params: { id: res.data.id } });
+          router.push({ name: "Tags" });
         })
         .catch(e => {
           console.log(e);

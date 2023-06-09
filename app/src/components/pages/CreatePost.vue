@@ -164,7 +164,7 @@ export default defineComponent({
         )
         .then(res => {
           loading.value = false;
-          router.push({ name: "EditPost", params: { id: res.data.id } });
+          router.push({ name: "Posts" });
         })
         .catch(e => {
           console.log(e);
