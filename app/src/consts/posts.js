@@ -1,8 +1,8 @@
-const PUBLISH = "publish";
+const PUBLIC = "public";
 const DRAFT = "draft";
 
 export default Object.freeze({
-  STATUS_PUBLISH: PUBLISH,
+  STATUS_PUBLIC: PUBLIC,
   STATUS_PRIVATE: DRAFT,
-  STATUSES: [PUBLISH, DRAFT]
+  STATUSES: [PUBLIC, DRAFT]
 });
